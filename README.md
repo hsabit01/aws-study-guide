@@ -2,32 +2,6 @@
 
 This guide organizes the note files in `notes/` into a practical study path for AWS Solutions Architect Associate topics.
 
-## How to Use This Guide
-
-| Step | What to Do | Why It Helps |
-|---:|---|---|
-| 1 | Follow the groups in order, starting with foundations and core networking. | Later services make more sense when IAM, accounts, and VPC are already clear. |
-| 2 | Study services listed together in the `Learn With` column during the same session. | The SAA exam often compares adjacent services and asks for tradeoff decisions. |
-| 3 | Revisit cross-referenced services in later groups without creating separate notes. | Some services matter in more than one exam domain, especially hybrid and migration scenarios. |
-| 4 | Use the filename correction table only as a cleanup reference. | The README links intentionally point to the current filenames that already exist under `notes/`. |
-
-## Recommended Learning Order
-
-1. IAM + Organizations + VPC
-2. EC2 + EBS + ELB + Route 53
-3. S3 + EFS + FSx
-4. RDS + Aurora + DynamoDB + ElastiCache
-5. CloudFront + WAF + ACM + Global Accelerator
-6. SQS + SNS + EventBridge
-7. Lambda + API Gateway + Serverless
-8. CloudWatch + CloudTrail + Config + Systems Manager
-9. KMS + Secrets Manager + GuardDuty + Directory Service
-10. Backup + Disaster Recovery
-11. DataSync + Storage Gateway + Snowball + DMS
-12. ECS + EKS + Elastic Beanstalk
-13. Glue + Lake Formation + EMR + SageMaker
-14. Direct Connect + Site-to-Site VPN + Outposts
-
 ## 01 - Core Foundations
 
 | Order | Service | File | Learn With | Why It Belongs Here |

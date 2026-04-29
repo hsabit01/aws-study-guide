@@ -48,29 +48,6 @@ Do not delete or rename any existing service `.md` files unless explicitly asked
 ## README Style Requirements
 
 Use clean GitHub-flavored Markdown.
-
-Use this structure:
-
-```md
-# AWS SAA Study Guide
-
-## How to Use This Guide
-
-## Recommended Learning Order
-
-## 01 - Core Foundations
-
-| Order | Service | File | Learn With | Why It Belongs Here |
-|---:|---|---|---|---|
-
-## 02 - Networking, Routing, and Edge
-
-| Order | Service | File | Learn With | Why It Belongs Here |
-|---:|---|---|---|---|
-
-...
-```
-
 Each table row should include:
 
 - `Order`: the study order within that group.
