@@ -1,159 +1,184 @@
 # CloudFront
 
 <details>
-<summary><h2>1. Definition</h2></summary>
+<summary>
+
+## 1. Definition
+
+</summary>
 
 ### Simple Definition
 
-Amazon CloudFront is AWS’s **Content Delivery Network (CDN)** service.
+Amazon CloudFront is AWS’s Content Delivery Network, or CDN.
 
-It delivers websites, images, videos, APIs, and other content to users from **edge locations** close to them instead of always going back to the original server.
-
-### Beginner Analogy
-
-Think of CloudFront like placing copies of your website files in many global mini-warehouses.
-
-When a user visits your site, CloudFront serves the content from the closest warehouse, making the website faster.
-
-### Key Exam Idea
-
-CloudFront is mainly used for:
-
-- Lower latency
-- Faster content delivery
-- Caching static and dynamic content
-- Protecting origins from direct public access
-- Adding security at the edge
+It speeds up delivery of websites, APIs, videos, images, and other content by caching content closer to users around the world.
 
 ### Memory Hook
 
-**CloudFront = Front door cache for global users**
+CloudFront = Front door at the edge.
+
+### Basic Idea
+
+Instead of every user reaching your application or S3 bucket directly, users connect to nearby CloudFront edge locations.
+
+CloudFront then serves cached content quickly or forwards the request to the origin if needed.
+
+```mermaid
+flowchart LR
+    A[User] --> B[CloudFront<br/>Edge Location]
+    B --> C{Cached?}
+    C -->|Yes| D[Return Cached Content]
+    C -->|No| E[Origin<br/>S3 / ALB / API Gateway / EC2]
+    E --> B
+    B --> A
+
+    style A fill:#2196F3,stroke:#0D47A1,color:#fff
+    style B fill:#9C27B0,stroke:#4A148C,color:#fff
+    style C fill:#FF9800,stroke:#E65100,color:#fff
+    style D fill:#4CAF50,stroke:#1B5E20,color:#fff
+    style E fill:#F44336,stroke:#B71C1C,color:#fff
+```
 
 </details>
 
 <details>
-<summary><h2>2. What Problem Does It Solve?</h2></summary>
+<summary>
+
+## 2. What Problem Does It Solve?
+
+</summary>
 
 ### Main Problem
 
-Without CloudFront, users around the world may have to connect directly to an origin server in one AWS Region.
+CloudFront solves the problem of slow content delivery to users who are far away from your application or storage origin.
 
-That can cause:
+It improves performance by serving content from edge locations near users.
+
+### Without CloudFront
+
+Users may experience:
 
 - Higher latency
-- Slower downloads
-- More load on the origin
-- Higher origin data transfer
-- More exposure to internet attacks
+- Slower website loading
+- More traffic hitting the origin directly
+- Higher origin load
+- Weaker global performance
+- More exposure of the origin to the internet
 
-### How CloudFront Helps
+### With CloudFront
 
-CloudFront stores cached copies of content at AWS edge locations.
+CloudFront caches content at edge locations and reduces requests to the origin.
 
-When users request content:
+Users get faster responses, and the origin handles less traffic.
 
-1. User sends request to CloudFront.
-2. CloudFront checks the nearest edge cache.
-3. If content is cached, CloudFront returns it quickly.
-4. If not cached, CloudFront fetches it from the origin and caches it for future requests.
+### Key Benefit
 
-### Key Exam Idea
-
-CloudFront improves performance by serving content from **edge locations**, not by moving your whole application to multiple Regions.
+CloudFront improves speed, scalability, availability, and security for global applications.
 
 </details>
 
 <details>
-<summary><h2>3. Core Use Cases</h2></summary>
+<summary>
+
+## 3. Core Use Cases
+
+</summary>
 
 ### Static Website Acceleration
 
-Common with:
+Use CloudFront to cache and deliver static files.
 
-- Amazon S3 static websites
-- Images
+Examples:
+
+- HTML
 - CSS
 - JavaScript
-- HTML files
+- Images
+- Videos
+
+### S3 Content Delivery
+
+CloudFront is commonly used in front of S3 buckets.
+
+Example:
+
+- S3 stores images
+- CloudFront delivers images globally
+- Users do not access the S3 bucket directly
 
 ### Dynamic Website Acceleration
 
-CloudFront can also deliver dynamic content such as:
+CloudFront can also forward dynamic requests to origins like ALB, EC2, or API Gateway.
 
-- API responses
-- Personalized web pages
-- Application traffic behind ALB or EC2
+Even if the content is not cached, CloudFront can improve performance using AWS’s global edge network.
 
-### Video Streaming
+### API Acceleration
 
-Used for:
+CloudFront can sit in front of APIs to improve global access.
 
-- On-demand videos
-- Live streaming
-- Media delivery at scale
-
-### Secure Private Content
-
-CloudFront can restrict access using:
-
-- Signed URLs
-- Signed cookies
-- Origin Access Control for private S3 buckets
-
-### Global API Acceleration
-
-CloudFront can sit in front of:
+Common origins:
 
 - API Gateway
 - Application Load Balancer
-- EC2-based web applications
+- EC2 web servers
 
-### DDoS Protection Layer
+### Video Streaming
 
-CloudFront integrates with:
+CloudFront can deliver video content globally with low latency.
 
-- AWS Shield Standard
-- AWS WAF
-- AWS Firewall Manager
+### Security Front Door
+
+CloudFront can work with AWS WAF and Shield to protect applications from common web attacks and DDoS attacks.
+
+### Private Content Delivery
+
+CloudFront can restrict access to content using signed URLs or signed cookies.
 
 </details>
 
 <details>
-<summary><h2>4. Important Features for SAA</h2></summary>
+<summary>
+
+## 4. Important Features for SAA
+
+</summary>
 
 ### Distribution
 
-A CloudFront distribution is the main configuration object.
+A CloudFront distribution is the main CloudFront resource.
 
 It defines:
 
 - Origins
-- Cache behaviors
+- Cache behavior
 - Domain names
-- TLS certificates
+- TLS certificate
 - Security settings
-- Logging settings
+- Logging
+- Price class
 
 ### Origin
 
-An origin is the original source of the content.
+An origin is the backend source where CloudFront gets content.
 
 Common origins:
 
 | Origin Type | Example |
 |---|---|
-| S3 bucket | Static files, images, videos |
-| ALB | Web applications |
-| EC2 | Custom web servers |
+| S3 bucket | Static files, images, downloads |
+| Application Load Balancer | Web applications |
+| EC2 instance | Custom web server |
 | API Gateway | APIs |
 | Media services | Video streaming |
-| Custom HTTP server | External origin |
+| Custom HTTP server | External web origin |
 
-### Edge Location
+### Edge Locations
 
-An edge location is where CloudFront caches and serves content close to users.
+Edge locations are global CloudFront locations where content is cached close to users.
 
-### Regional Edge Cache
+Users are routed to nearby edge locations for faster response times.
+
+### Regional Edge Caches
 
 Regional edge caches sit between edge locations and origins.
 
@@ -161,612 +186,720 @@ They help reduce repeated requests to the origin.
 
 ### Cache Behavior
 
-Cache behaviors control how CloudFront handles different URL paths.
+Cache behavior controls how CloudFront handles requests.
+
+It can define:
+
+- Path patterns
+- Allowed HTTP methods
+- Viewer protocol policy
+- Cache policy
+- Origin request policy
+- Response headers policy
+- TTL settings
+
+### Path-Based Caching
+
+CloudFront can use different cache behaviors for different paths.
 
 Example:
 
 | Path Pattern | Behavior |
 |---|---|
 | `/images/*` | Cache for a long time |
-| `/api/*` | Forward headers/query strings, short TTL |
+| `/api/*` | Forward to API origin |
 | `/private/*` | Require signed URLs |
-
-### Cache Policy
-
-A cache policy controls what values are included in the cache key.
-
-The cache key can include:
-
-- Headers
-- Cookies
-- Query strings
-
-### Origin Request Policy
-
-An origin request policy controls what CloudFront forwards to the origin.
-
-Important exam distinction:
-
-| Policy | Purpose |
-|---|---|
-| Cache policy | Controls what makes cached objects unique |
-| Origin request policy | Controls what is sent to the origin |
 
 ### TTL
 
-TTL means **Time To Live**.
+TTL means Time To Live.
 
-It controls how long CloudFront keeps an object in cache.
-
-Common TTL settings:
+It controls how long CloudFront caches content before checking the origin again.
 
 | TTL Type | Meaning |
 |---|---|
-| Minimum TTL | Shortest time object stays cached |
-| Default TTL | Normal cache duration |
-| Maximum TTL | Longest cache duration |
+| Minimum TTL | Shortest time content stays cached |
+| Default TTL | Normal cache time |
+| Maximum TTL | Longest allowed cache time |
+
+### Cache Hit
+
+A cache hit happens when CloudFront already has the requested content cached.
+
+This gives faster responses and reduces origin load.
+
+### Cache Miss
+
+A cache miss happens when CloudFront does not have the content cached.
+
+CloudFront must request it from the origin.
 
 ### Invalidation
 
-Invalidation removes cached objects from CloudFront before TTL expires.
+Invalidation removes cached objects from CloudFront before the TTL expires.
+
+Use it when content changes and users need the new version quickly.
 
 Example:
 
-```text
-/index.html
-/images/logo.png
-/*
-```
+Invalidate `/index.html` after deploying a new website version.
 
-Important exam point:
+### Versioned File Names
 
-- Invalidation works, but can cost money.
-- Versioned file names are often better for frequent updates.
+Instead of frequent invalidations, use versioned file names.
 
 Example:
 
-```text
-app-v1.js
-app-v2.js
-```
+- `app-v1.js`
+- `app-v2.js`
+- `logo-2026.png`
+
+This is usually better for cost and caching.
+
+### Allowed HTTP Methods
+
+CloudFront can allow different HTTP methods.
+
+Examples:
+
+| Method Set | Use Case |
+|---|---|
+| `GET`, `HEAD` | Static content |
+| `GET`, `HEAD`, `OPTIONS` | Static content with CORS |
+| All methods | Dynamic APIs or applications |
+
+### Viewer Protocol Policy
+
+Viewer protocol policy controls how users connect to CloudFront.
+
+Common options:
+
+| Policy | Meaning |
+|---|---|
+| HTTP and HTTPS | Allow both |
+| Redirect HTTP to HTTPS | Automatically redirect HTTP to HTTPS |
+| HTTPS only | Require HTTPS |
+
+### Origin Protocol Policy
+
+Origin protocol policy controls how CloudFront connects to the origin.
+
+For security, prefer HTTPS between CloudFront and the origin when supported.
 
 ### Origin Access Control
 
-Origin Access Control, or OAC, is the modern way to allow CloudFront to securely access a private S3 bucket.
+Origin Access Control, or OAC, is used to let CloudFront securely access private S3 buckets.
 
-Use OAC instead of making the S3 bucket public.
+This prevents users from bypassing CloudFront and accessing S3 directly.
+
+### Origin Access Identity
+
+Origin Access Identity, or OAI, is the older method for restricting S3 bucket access to CloudFront.
+
+For new designs, prefer OAC.
 
 ### Signed URLs
 
-Signed URLs are used when you want to give access to a specific private file for a limited time.
+Signed URLs provide temporary access to private content using a special URL.
 
-Good for:
-
-- Paid downloads
-- Private videos
-- Temporary access to one object
+Use when access is for one specific file.
 
 ### Signed Cookies
 
-Signed cookies are used when you want to give access to multiple private files.
+Signed cookies provide access to multiple private files.
 
-Good for:
-
-- Premium video libraries
-- Member-only content sections
-- Multiple restricted files under a path
-
-### Geo Restriction
-
-Geo restriction allows or blocks users based on country.
-
-Options:
-
-| Option | Meaning |
-|---|---|
-| Allowlist | Only listed countries can access |
-| Blocklist | Listed countries are blocked |
+Use when users need access to many protected objects.
 
 ### Field-Level Encryption
 
-Field-level encryption protects sensitive form fields before they reach the origin.
+Field-level encryption protects sensitive data fields before they reach the origin.
 
 Example:
 
-- Credit card number
-- National ID
-- Personal data
+Encrypt credit card data submitted through a web form.
 
-### CloudFront Functions
+### Compression
 
-CloudFront Functions run lightweight JavaScript at edge locations.
+CloudFront can compress files before sending them to users.
 
-Good for:
+This reduces transfer size and improves performance.
 
-- URL rewrites
-- Header manipulation
-- Simple redirects
-- Request normalization
+Common compressed formats:
+
+- Brotli
+- Gzip
 
 ### Lambda@Edge
 
-Lambda@Edge is more powerful than CloudFront Functions.
+Lambda@Edge lets you run Lambda functions at CloudFront edge locations.
 
-Good for:
+Use it to customize requests and responses close to users.
 
-- Complex request logic
-- Authentication checks
-- Dynamic origin selection
-- More advanced edge processing
+### CloudFront Functions
+
+CloudFront Functions are lightweight JavaScript functions that run at the edge.
+
+They are best for simple request and response manipulation.
+
+Examples:
+
+- Header changes
+- URL redirects
+- Request normalization
+- Lightweight authentication checks
 
 ### CloudFront Functions vs Lambda@Edge
 
 | Feature | CloudFront Functions | Lambda@Edge |
 |---|---|---|
-| Best for | Lightweight logic | Advanced logic |
-| Runtime | JavaScript only | Node.js / Python support depends on Lambda@Edge runtime support |
-| Runs at | Edge locations | Regional edge caches |
-| Use case | Redirects, headers, URL rewrites | Auth, origin selection, complex processing |
-| Cost/performance | Cheaper and faster | More powerful but heavier |
+| Runtime | Lightweight JavaScript | Lambda runtimes |
+| Best for | Simple viewer request/response logic | More advanced edge processing |
+| Execution location | Edge locations | Regional edge caches and edge locations |
+| Cost/latency | Lower | Higher |
+| Network access | No | More capable |
 
-### Custom Domain and TLS
+### Geo Restriction
 
-CloudFront supports custom domain names using Alternate Domain Names, also called CNAMEs.
+Geo restriction can allow or block users based on country.
 
-Important exam point:
+Use it for content licensing or compliance requirements.
 
-- ACM certificates for CloudFront must be created in **us-east-1**.
-- This is true even if the origin is in another Region.
+### Custom Error Pages
+
+CloudFront can return custom error pages.
+
+Example:
+
+Return a custom `404.html` page for missing content.
+
+### Access Logs
+
+CloudFront can log viewer requests.
+
+Logs help with:
+
+- Auditing
+- Troubleshooting
+- Traffic analysis
+- Security investigation
 
 </details>
 
 <details>
-<summary><h2>5. Security Model</h2></summary>
+<summary>
+
+## 5. Security Model
+
+</summary>
 
 ### IAM Permissions
 
-IAM controls who can manage CloudFront.
+IAM controls who can manage CloudFront resources.
 
-Examples:
+Common permissions:
 
-- Create distributions
-- Update distributions
-- Create invalidations
-- Manage key groups
-- Configure logging
-
-IAM does not usually control end-user access to cached content directly.
-
-End-user access is controlled with:
-
-- Signed URLs
-- Signed cookies
-- Geo restriction
-- AWS WAF
-- Viewer protocol policies
-
-### Encryption Options
-
-CloudFront supports encryption:
-
-| Path | Encryption Option |
+| Permission | Purpose |
 |---|---|
-| Viewer to CloudFront | HTTPS |
-| CloudFront to origin | HTTPS |
-| Sensitive fields | Field-level encryption |
-| S3 origin access | Origin Access Control with signed requests |
+| `cloudfront:CreateDistribution` | Create distributions |
+| `cloudfront:UpdateDistribution` | Modify distributions |
+| `cloudfront:CreateInvalidation` | Invalidate cached objects |
+| `cloudfront:GetDistribution` | View distribution details |
+| `cloudfront:DeleteDistribution` | Delete distributions |
 
-### Viewer Protocol Policy
+### HTTPS and TLS
 
-Controls how users connect to CloudFront.
+CloudFront supports HTTPS for secure communication with users.
 
-Options:
+Use ACM certificates for custom domain names.
 
-| Option | Meaning |
-|---|---|
-| HTTP and HTTPS | Allow both |
-| Redirect HTTP to HTTPS | Redirect insecure requests |
-| HTTPS only | Reject HTTP |
+Important exam point:
 
-### Origin Protocol Policy
+For CloudFront custom domain certificates, the ACM certificate must be in `us-east-1`.
 
-Controls how CloudFront connects to the origin.
+### Origin Access Control
 
-Options:
+Use OAC to keep S3 buckets private while allowing CloudFront access.
 
-| Option | Meaning |
-|---|---|
-| HTTP only | CloudFront uses HTTP to origin |
-| HTTPS only | CloudFront uses HTTPS to origin |
-| Match viewer | Uses the same protocol as viewer request |
-
-### S3 Origin Security
-
-Best practice for private S3 origins:
-
-1. Keep the S3 bucket private.
-2. Configure CloudFront Origin Access Control.
-3. Add an S3 bucket policy allowing CloudFront access.
-4. Do not allow public access directly to S3.
-
-### ALB Origin Security
-
-For an ALB origin, you can restrict direct access by:
-
-- Allowing only CloudFront IP ranges using AWS-managed prefix lists
-- Using custom headers from CloudFront to ALB
-- Requiring HTTPS
-- Adding AWS WAF to CloudFront
+This helps ensure users must go through CloudFront.
 
 ### AWS WAF Integration
 
-AWS WAF can protect CloudFront from:
+AWS WAF can be attached to CloudFront.
+
+Use WAF to protect against:
 
 - SQL injection
 - Cross-site scripting
-- Bad bots
-- IP-based attacks
-- Rate-based attacks
+- Bad IPs
+- Bot traffic
+- Layer 7 attacks
 
-### DDoS Protection
+### AWS Shield
 
-CloudFront includes AWS Shield Standard automatically.
+CloudFront integrates with AWS Shield for DDoS protection.
 
-For advanced protection, use:
+AWS Shield Standard is automatically included.
 
-- AWS Shield Advanced
-- AWS WAF
-- CloudFront caching
-- Rate-based rules
+AWS Shield Advanced provides enhanced DDoS protection features.
+
+### Signed URLs and Signed Cookies
+
+Use signed URLs or signed cookies for private content.
+
+| Feature | Best For |
+|---|---|
+| Signed URL | Access to one specific file |
+| Signed Cookie | Access to multiple protected files |
+
+### Geo Restriction
+
+Geo restriction can block or allow users from specific countries.
+
+This is useful for regional licensing or compliance.
+
+### Field-Level Encryption
+
+Field-level encryption protects sensitive fields by encrypting them at the edge before forwarding them to the origin.
+
+### Origin Security
+
+The origin should be protected so users cannot bypass CloudFront.
+
+Examples:
+
+- S3 bucket private with OAC
+- ALB security group allowing only CloudFront origin-facing traffic
+- Custom headers from CloudFront to origin
+- WAF rules at CloudFront
+
+### Encryption in Transit
+
+Use HTTPS between:
+
+- Viewer and CloudFront
+- CloudFront and origin
+
+### Encryption at Rest
+
+CloudFront caches content at edge locations.
+
+For origin storage encryption, configure encryption on the origin service.
+
+Examples:
+
+- S3 server-side encryption
+- EBS encryption
+- RDS encryption
 
 ### Shared Responsibility
 
-| AWS Responsibility | Customer Responsibility |
-|---|---|
-| Global edge infrastructure | Configure cache/security correctly |
-| Physical security of edge locations | Use HTTPS and proper certificates |
-| CloudFront service availability | Protect origins from direct access |
-| Shield Standard integration | Configure WAF rules if needed |
-| Managed CDN infrastructure | Manage private content access |
+AWS is responsible for:
+
+- CloudFront edge infrastructure
+- Global CDN availability
+- Managed service operations
+- Physical security
+- DDoS protection through Shield Standard
+
+You are responsible for:
+
+- Distribution configuration
+- Origin security
+- HTTPS certificates
+- Cache behavior settings
+- WAF rules
+- Signed URL or cookie configuration
+- S3 bucket policies
+- Logging and monitoring
 
 </details>
 
 <details>
-<summary><h2>6. High Availability / Durability Behavior</h2></summary>
+<summary>
+
+## 6. High Availability / Durability Behavior
+
+</summary>
 
 ### Availability
 
-CloudFront is a global service.
+CloudFront is a global service that uses a worldwide network of edge locations.
 
-It uses many edge locations around the world to serve user requests with low latency.
+Users are automatically routed to nearby healthy edge locations.
 
 ### Fault Tolerance
 
-If one edge location has an issue, CloudFront can route requests through other nearby locations.
+If content is cached at an edge location, CloudFront can serve it without going back to the origin.
 
-### Multi-Region Behavior
-
-CloudFront itself is global, but your origin may be in one Region or multiple Regions.
-
-Common origin options:
-
-| Origin Setup | Behavior |
-|---|---|
-| Single S3 bucket | Simple and common |
-| ALB in one Region | CloudFront improves global access but origin is still one Region |
-| Multiple origins | Can route different paths to different origins |
-| Origin failover | Can fail over to a secondary origin |
+If an edge location is unavailable, requests can be routed to another edge location.
 
 ### Origin Failover
 
-CloudFront origin groups allow failover from a primary origin to a secondary origin.
+CloudFront supports origin failover.
+
+You can configure a primary origin and a secondary origin.
+
+If the primary origin fails, CloudFront can route requests to the secondary origin.
+
+### Multi-AZ Behavior
+
+CloudFront itself is not deployed into your VPC subnets or Availability Zones.
+
+AWS manages the global edge network.
+
+Your origin should still be designed for Multi-AZ availability.
 
 Example:
 
-- Primary origin: S3 bucket in Region A
-- Secondary origin: S3 bucket in Region B
+Use an Application Load Balancer across multiple AZs as the origin.
 
-CloudFront can fail over based on certain HTTP error codes.
+### Multi-Region Behavior
+
+CloudFront is global.
+
+Origins can be in one Region or multiple Regions.
+
+For high availability, you can use:
+
+- Multiple origins
+- Origin failover
+- S3 cross-region replication
+- Route 53 failover behind the origin
+- Multi-Region application design
 
 ### Durability
 
-CloudFront is not a storage durability service.
+CloudFront is a CDN cache, not durable storage.
 
-Durability depends on the origin.
+Do not treat CloudFront as the source of truth.
 
-Example:
+The origin, such as S3 or your application, is the durable source.
 
-| Origin | Durability Responsibility |
-|---|---|
-| S3 | S3 stores objects durably |
-| EC2 | You manage durability |
-| ALB + Auto Scaling | You manage application/data durability |
-| API Gateway | API Gateway handles API availability, backend still matters |
+### Cache Resilience
 
-### Key Exam Idea
+Cached content can still be served from edge locations even when origin traffic is reduced.
 
-CloudFront improves global availability and performance, but it does not replace proper origin high availability.
+However, CloudFront may need the origin when:
+
+- Content is not cached
+- Cached content expires
+- Content is invalidated
+- Dynamic requests must be forwarded
+
+### Exam Tip
+
+CloudFront improves availability and performance, but the origin must still be highly available.
 
 </details>
 
 <details>
-<summary><h2>7. Cost Optimization Options</h2></summary>
+<summary>
 
-### Use Caching Effectively
+## 7. Cost Optimization Options
 
-The more CloudFront serves from cache, the fewer requests go to the origin.
+</summary>
 
-This can reduce:
+### Improve Cache Hit Ratio
 
-- Origin load
-- Origin compute cost
-- Origin data transfer
-- Application scaling pressure
+A higher cache hit ratio means CloudFront serves more requests from cache.
 
-### Use Longer TTLs for Static Content
+This reduces origin load and can reduce backend cost.
 
-Good candidates for long TTL:
+Ways to improve cache hit ratio:
 
-- Images
-- CSS
-- JavaScript
-- Fonts
-- Videos
+- Use longer TTLs for static assets
+- Avoid forwarding unnecessary headers
+- Avoid forwarding unnecessary cookies
+- Avoid forwarding unnecessary query strings
+- Use versioned file names
 
-Use versioned file names when content changes.
+### Use Cache Policies
 
-Example:
+Cache policies control what values are included in the cache key.
 
-```text
-main-v1.css
-main-v2.css
-```
+Do not include headers, cookies, or query strings unless needed.
 
-### Avoid Excessive Invalidations
+More cache key variation usually means fewer cache hits.
 
-Invalidations can be useful, but frequent invalidations may increase cost.
+### Use Price Classes
 
-Better approach:
-
-- Use object versioning in file names
-- Cache static files longer
-- Invalidate only when needed
-
-### Choose the Right Price Class
-
-CloudFront price classes let you reduce cost by limiting which edge locations serve traffic.
+CloudFront price classes let you control which edge locations are used.
 
 | Price Class | Meaning |
 |---|---|
-| Price Class 100 | Lowest cost, fewer edge locations |
+| Price Class 100 | Lowest-cost edge locations |
 | Price Class 200 | More locations |
-| Price Class All | Best global performance, highest coverage |
+| Price Class All | Best global performance |
+
+Use a lower price class if you do not need maximum global coverage.
+
+### Avoid Frequent Invalidations
+
+Invalidations can add cost after the free tier amount.
+
+Use versioned file names instead of frequently invalidating many files.
 
 ### Compress Content
 
-Enable compression for supported file types.
+Compression reduces data transfer size.
 
-This can reduce:
+This can improve performance and reduce transfer cost.
 
-- Data transfer size
-- Load time
-- Bandwidth cost
+### Cache Static Content Longer
 
-### Reduce Origin Requests
+Static content like images, CSS, and JavaScript can often be cached longer.
 
-Use cache policies carefully.
+Use shorter TTLs only when content changes often.
 
-Avoid forwarding unnecessary:
+### Use Origin Shield
 
-- Headers
-- Cookies
-- Query strings
+Origin Shield adds an additional caching layer to reduce origin requests.
 
-More forwarded values can reduce cache hit ratio.
+It is useful when many edge locations request the same content from the origin.
 
-### Use CloudFront Functions for Simple Logic
+### Monitor Logs Carefully
 
-For lightweight edge logic, CloudFront Functions are usually more cost-effective than Lambda@Edge.
+CloudFront logs are useful but can create storage and analytics costs.
 
-### Memory Hook
-
-**More cache hits = less origin cost**
+Enable logs when needed and apply lifecycle policies on log storage.
 
 </details>
 
 <details>
-<summary><h2>8. Common Exam Traps</h2></summary>
+<summary>
 
-### Trap 1: CloudFront Is Global, But ACM Certificate Must Be In us-east-1
+## 8. Common Exam Traps
 
-For CloudFront custom HTTPS certificates, the ACM certificate must be in:
+</summary>
 
-```text
-us-east-1
-```
+### CloudFront Is a CDN, Not DNS
 
-### Trap 2: OAC Is Preferred Over OAI
+CloudFront delivers and caches content globally.
 
-For private S3 origins, prefer:
+Route 53 handles DNS routing.
 
-```text
-Origin Access Control
-```
+They are often used together, but they are not the same service.
 
-Older questions may mention Origin Access Identity, but modern best practice is OAC.
+### CloudFront Is Global
 
-### Trap 3: CloudFront Does Not Replace S3 Durability
+CloudFront is a global edge service.
 
-CloudFront caches content.
+You do not deploy CloudFront into a specific VPC subnet.
 
-It does not become the permanent source of truth.
+### CloudFront Does Not Replace the Origin
 
-The origin is still responsible for durable storage.
+CloudFront caches content, but the origin is still the source of truth.
 
-### Trap 4: Invalidation Is Not the Only Way to Update Content
+Use S3, ALB, API Gateway, EC2, or another origin to store or generate content.
 
-You can update content by:
+### OAC vs OAI
 
-- Invalidating cached files
-- Waiting for TTL to expire
-- Using versioned object names
+OAC is the newer recommended way to securely connect CloudFront to private S3 buckets.
 
-For frequent deployments, versioned object names are often better.
+OAI is older.
 
-### Trap 5: Cache Policy vs Origin Request Policy
+For new S3 origin designs, prefer OAC.
 
-Do not mix these up.
+### ACM Certificate Region Trap
 
-| Policy | Exam Meaning |
+For CloudFront custom domains, the ACM certificate must be in `us-east-1`.
+
+This is a common exam detail.
+
+### Caching Dynamic Content
+
+CloudFront can serve dynamic content, but dynamic requests may not be cached.
+
+It can still improve performance through edge networking and TLS optimization.
+
+### Invalidations vs TTL
+
+TTL controls how long content stays cached.
+
+Invalidation forces CloudFront to remove cached content before TTL expires.
+
+### Signed URL vs Signed Cookie
+
+| Use Case | Choose |
 |---|---|
-| Cache policy | What affects cache uniqueness |
-| Origin request policy | What gets forwarded to origin |
+| Access to one file | Signed URL |
+| Access to many files | Signed Cookie |
 
-### Trap 6: More Headers/Cookies/Query Strings Can Reduce Caching
+### Geo Restriction Is Country-Based
 
-Forwarding too many values creates more cache variations.
+CloudFront geo restriction allows or blocks access based on country.
 
-That can reduce cache hit ratio and increase origin load.
+It is not the same as Route 53 geolocation routing.
 
-### Trap 7: Signed URLs vs Signed Cookies
+### WAF at CloudFront Protects Globally
 
-| Requirement | Choose |
-|---|---|
-| Temporary access to one file | Signed URL |
-| Access to many private files | Signed cookies |
+Attaching AWS WAF to CloudFront protects traffic at the edge before it reaches the origin.
 
-### Trap 8: Geo Restriction Is Country-Based
+### Security Group Trap
 
-CloudFront geo restriction works at the country level.
+CloudFront does not have a security group.
 
-It is not the same as fine-grained user authentication.
+Security groups apply to VPC resources such as EC2, ALB, and RDS.
 
-### Trap 9: WAF Should Usually Be Attached at CloudFront for Global Web Protection
+### S3 Static Website Endpoint Trap
 
-For global applications, attaching AWS WAF to CloudFront helps block bad traffic before it reaches the origin.
+If using an S3 static website endpoint as the CloudFront origin, OAC/OAI does not work the same way as with S3 REST endpoints.
 
-### Trap 10: CloudFront Can Cache Static and Dynamic Content
-
-CloudFront is not only for static files.
-
-It can also accelerate:
-
-- APIs
-- Dynamic web apps
-- ALB-backed applications
+For private S3 content with CloudFront, use the S3 REST endpoint with OAC.
 
 </details>
 
 <details>
-<summary><h2>9. Compare With Similar Services</h2></summary>
+<summary>
+
+## 9. Compare With Similar Services
+
+</summary>
 
 ### Service Comparison Table
 
-| Service | Main Purpose | Choose It When |
-|---|---|---|
-| CloudFront | Global CDN and edge caching | You need low-latency global content delivery |
-| S3 Static Website Hosting | Host static files directly from S3 | You need a simple static website, but not advanced CDN features |
-| Global Accelerator | Improve performance for TCP/UDP applications | You need static Anycast IPs and network acceleration, not caching |
-| Route 53 | DNS routing | You need domain registration, DNS records, health checks, or routing policies |
-| API Gateway | Managed API front door | You need API throttling, authentication, stages, and API management |
-| ALB | Layer 7 load balancing in a Region | You need HTTP/HTTPS routing to targets inside a Region |
-| AWS WAF | Web attack filtering | You need to block malicious HTTP/S requests |
-| Shield Advanced | Advanced DDoS protection | You need enhanced DDoS protection and response support |
-
-### CloudFront vs Global Accelerator
-
-| Feature | CloudFront | Global Accelerator |
-|---|---|---|
-| Main function | CDN caching | Network acceleration |
-| Protocols | HTTP/HTTPS mainly | TCP/UDP |
-| Caches content | Yes | No |
-| Edge locations | Yes | Yes |
-| Static Anycast IPs | Not the main feature | Yes |
-| Best for | Websites, APIs, static assets, videos | Gaming, IoT, TCP/UDP apps, multi-Region failover |
+| Service | Main Purpose | Best For | Choose When |
+|---|---|---|---|
+| CloudFront | CDN and edge delivery | Caching and accelerating content globally | You need fast global content delivery |
+| Route 53 | DNS | Domain name routing | You need DNS records or DNS failover |
+| Global Accelerator | Network acceleration | Static anycast IPs and fast failover | You need low-latency TCP/UDP routing with static IPs |
+| API Gateway | API management | REST, HTTP, and WebSocket APIs | You need API auth, throttling, stages, or usage plans |
+| Elastic Load Balancer | Load balancing | Distributing traffic across backend targets | You need request or connection load balancing |
+| S3 Transfer Acceleration | Faster S3 uploads/downloads | Direct S3 transfer acceleration | You need faster long-distance transfers into S3 |
 
 ### CloudFront vs Route 53
 
 | Feature | CloudFront | Route 53 |
 |---|---|---|
-| Type | CDN | DNS service |
-| Caches content | Yes | No |
-| Routes domain names | Can use custom domains | Yes, primary DNS function |
-| Health checks | No, not primary purpose | Yes |
-| Best for | Fast content delivery | DNS and routing policies |
-
-### CloudFront vs ALB
-
-| Feature | CloudFront | ALB |
-|---|---|---|
-| Scope | Global edge network | Regional |
+| Main purpose | CDN | DNS |
 | Caching | Yes | No |
-| Layer | Edge CDN | Layer 7 load balancer |
-| Best for | Global performance and protection | Regional app load balancing |
+| Routes users by domain | Uses domain aliases | Yes |
+| Improves content delivery | Yes | No direct caching |
+| Common use together | Route 53 points domain to CloudFront | CloudFront serves the content |
 
-### Simple Decision Guide
+### CloudFront vs Global Accelerator
 
-| Scenario | Best Choice |
-|---|---|
-| Serve static website globally with low latency | CloudFront + S3 |
-| Protect website from web attacks globally | CloudFront + AWS WAF |
-| Need DNS failover and domain routing | Route 53 |
-| Need regional HTTP routing to containers/EC2 | ALB |
-| Need TCP/UDP acceleration with static IPs | Global Accelerator |
-| Need managed REST/WebSocket APIs | API Gateway |
+| Feature | CloudFront | Global Accelerator |
+|---|---|---|
+| Main purpose | CDN and HTTP/S acceleration | Network traffic acceleration |
+| Best for | Websites, APIs, static content, video | TCP/UDP apps, static IPs, fast failover |
+| Caching | Yes | No |
+| Static anycast IPs | Not the main feature | Yes |
+| Layer | Layer 7 HTTP/S-focused | Layer 4 TCP/UDP |
+
+### CloudFront vs S3 Transfer Acceleration
+
+| Feature | CloudFront | S3 Transfer Acceleration |
+|---|---|---|
+| Main purpose | Deliver content to users | Speed up transfers to/from S3 |
+| Caching | Yes | No CDN caching for website delivery |
+| Best for | Public content delivery | Large file uploads/downloads to S3 |
+| Common origin | S3, ALB, API Gateway, EC2 | S3 only |
+
+### CloudFront vs API Gateway
+
+| Feature | CloudFront | API Gateway |
+|---|---|---|
+| Main purpose | Edge delivery and caching | API management |
+| Auth features | Signed URLs/cookies, WAF integration | IAM, Cognito, JWT, Lambda authorizers |
+| API throttling | Limited compared to API Gateway | Strong API throttling and quotas |
+| Best for | Global content delivery | Managed APIs |
+| Common use together | CloudFront in front of API | API Gateway as origin |
+
+### When to Choose CloudFront
+
+Choose CloudFront when:
+
+- You need global content delivery
+- You need caching close to users
+- You need to reduce origin load
+- You need HTTPS for a custom domain
+- You need private S3 content delivery
+- You need WAF protection at the edge
+- You need signed URLs or signed cookies
+- You need low-latency website or media delivery
 
 </details>
 
 <details>
-<summary><h2>10. Mini Architecture Example</h2></summary>
+<summary>
+
+## 10. Mini Architecture Example
+
+</summary>
 
 ### Scenario
 
-You host a static website in a private S3 bucket and want users around the world to access it quickly and securely.
+A company hosts a static website with images, CSS, JavaScript, and videos.
+
+Users are global, and the company wants fast load times and secure access to the S3 origin.
 
 ### Architecture
 
+CloudFront sits in front of a private S3 bucket.
+
+Users access CloudFront, not the S3 bucket directly.
+
+OAC allows CloudFront to read private objects from S3.
+
+AWS WAF protects the distribution.
+
+Route 53 points the custom domain to CloudFront.
+
 ```mermaid
-flowchart LR
-    User[Users Worldwide] --> CF[Amazon CloudFront<br/>Global CDN]
-    CF --> WAF[AWS WAF<br/>Web Protection]
-    CF --> OAC[Origin Access Control<br/>Private Access]
-    OAC --> S3[Private S3 Bucket<br/>Static Website Files]
-    CF --> Logs[CloudWatch / S3 Logs<br/>Monitoring]
+flowchart TD
+    A[Global Users] --> B[Route 53<br/>DNS]
+    B --> C[CloudFront Distribution<br/>Global CDN]
+    C --> D{Cached at Edge?}
 
-    style User fill:#1E90FF,stroke:#0B3D91,color:#ffffff
-    style CF fill:#8A2BE2,stroke:#4B0082,color:#ffffff
-    style WAF fill:#FF4500,stroke:#8B0000,color:#ffffff
-    style OAC fill:#00C853,stroke:#006400,color:#ffffff
-    style S3 fill:#FFA500,stroke:#CC7000,color:#000000
-    style Logs fill:#FF1493,stroke:#8B005D,color:#ffffff
+    D -->|Yes| E[Return Content<br/>From Edge Cache]
+    D -->|No| F[Private S3 Bucket<br/>Website Assets]
+
+    C --> G[AWS WAF<br/>Edge Protection]
+    C --> H[ACM Certificate<br/>HTTPS]
+
+    F --> I[Origin Access Control<br/>OAC]
+
+    style A fill:#2196F3,stroke:#0D47A1,color:#fff
+    style B fill:#9C27B0,stroke:#4A148C,color:#fff
+    style C fill:#FF9800,stroke:#E65100,color:#fff
+    style D fill:#00BCD4,stroke:#006064,color:#fff
+    style E fill:#4CAF50,stroke:#1B5E20,color:#fff
+    style F fill:#F44336,stroke:#B71C1C,color:#fff
+    style G fill:#E91E63,stroke:#880E4F,color:#fff
+    style H fill:#673AB7,stroke:#311B92,color:#fff
+    style I fill:#8BC34A,stroke:#33691E,color:#fff
 ```
-
-### Request Flow
-
-1. User visits the website.
-2. DNS points the domain to CloudFront.
-3. CloudFront checks its edge cache.
-4. If cached, CloudFront returns the content immediately.
-5. If not cached, CloudFront uses OAC to fetch content from the private S3 bucket.
-6. CloudFront caches the content for future users.
-7. AWS WAF can block malicious requests before they reach the origin.
 
 ### Why This Is Good
 
-| Benefit | Explanation |
-|---|---|
-| Fast | Content served from nearby edge locations |
-| Secure | S3 bucket stays private |
-| Scalable | CloudFront handles large global traffic |
-| Cost-effective | Fewer requests reach S3 |
-| Protected | AWS WAF and Shield Standard help defend against attacks |
+- Users get content from nearby edge locations
+- S3 bucket can remain private
+- CloudFront reduces direct traffic to S3
+- WAF protects the application at the edge
+- HTTPS secures user connections
+- Route 53 provides friendly DNS names
 
-### Exam-Focused Summary
+### Exam Answer Pattern
 
-Use CloudFront when you need to deliver content globally with low latency, caching, HTTPS, private origin access, and edge-level security.
+If the question says:
+
+“Improve global performance for static content stored in S3 and keep the bucket private.”
+
+Think:
+
+CloudFront distribution with S3 origin and Origin Access Control.
 
 ### Final Memory Hook
 
-**CloudFront = Global speed + edge cache + secure front door**
+CloudFront caches content globally.
+
+Route 53 routes domain names.
+
+S3 stores objects.
+
+WAF protects web traffic.
+
+Global Accelerator improves network routing with static anycast IPs.
 
 </details>

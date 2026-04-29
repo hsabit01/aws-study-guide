@@ -1,690 +1,883 @@
 # EC2
 
 <details>
-<summary>## 1. Definition</summary>
+<summary>
 
 ## 1. Definition
 
+</summary>
+
 ### Simple Definition
 
-Amazon EC2, or Elastic Compute Cloud, is a service that lets you rent virtual servers in AWS.
+Amazon EC2, or Elastic Compute Cloud, is AWS’s virtual server service.
 
-These virtual servers are called EC2 instances.
-
-Instead of buying physical servers, you choose:
-- CPU
-- Memory
-- Storage
-- Network performance
-- Operating system
-- Pricing model
-
-### Simple Analogy
-
-EC2 is like renting a computer in the cloud.
-
-You can:
-- Start it when needed
-- Stop it when not needed
-- Resize it
-- Install software
-- Connect it to other AWS services
-
-### Key Exam Idea
-
-EC2 is an Infrastructure as a Service, or IaaS, service.
-
-AWS manages the physical data center and hardware. You manage the operating system, applications, patches, and security configuration inside the instance.
-
-</details>
-
-<details>
-<summary>## 2. What Problem Does It Solve?</summary>
-
-## 2. What Problem Does It Solve?
-
-### Main Problem
-
-Before cloud computing, companies had to buy physical servers, wait for delivery, install hardware, and guess future capacity.
-
-EC2 solves this by giving you compute capacity on demand.
-
-### What EC2 Helps With
-
-EC2 helps you:
-- Run applications without buying servers
-- Scale compute capacity up or down
-- Choose different instance types for different workloads
-- Pay only for the compute capacity you use
-- Deploy servers across multiple Availability Zones
+It lets you rent virtual machines in the cloud to run applications, websites, databases, scripts, containers, and custom workloads.
 
 ### Memory Hook
 
-EC2 = Elastic Cloud Computers
+EC2 = Elastic Cloud Computers.
 
-Elastic means you can grow or shrink capacity when needed.
+### Basic Idea
+
+Instead of buying physical servers, you launch EC2 instances in AWS.
+
+You choose:
+
+- Instance type
+- Operating system
+- Storage
+- Network settings
+- Security rules
+- Scaling options
+
+```mermaid
+flowchart LR
+    A[User / Client] --> B[Load Balancer]
+    B --> C[EC2 Instance 1]
+    B --> D[EC2 Instance 2]
+    C --> E[EBS Volume]
+    D --> F[EBS Volume]
+
+    style A fill:#2196F3,stroke:#0D47A1,color:#fff
+    style B fill:#9C27B0,stroke:#4A148C,color:#fff
+    style C fill:#FF9800,stroke:#E65100,color:#fff
+    style D fill:#FF9800,stroke:#E65100,color:#fff
+    style E fill:#4CAF50,stroke:#1B5E20,color:#fff
+    style F fill:#4CAF50,stroke:#1B5E20,color:#fff
+```
 
 </details>
 
 <details>
-<summary>## 3. Core Use Cases</summary>
+<summary>
+
+## 2. What Problem Does It Solve?
+
+</summary>
+
+### Main Problem
+
+EC2 solves the problem of needing flexible compute capacity without buying or managing physical hardware.
+
+You can launch servers quickly, scale them up or down, and pay only for what you use.
+
+### Without EC2
+
+You may need to:
+
+- Buy physical servers
+- Wait for hardware delivery
+- Manage data center space
+- Handle hardware failures
+- Overprovision capacity for peak traffic
+- Manually scale infrastructure
+
+### With EC2
+
+You can:
+
+- Launch servers in minutes
+- Choose different CPU, memory, storage, and network sizes
+- Scale capacity based on demand
+- Run many operating systems
+- Stop, start, terminate, or replace servers easily
+
+### Key Benefit
+
+EC2 gives you flexible, resizable compute power in the AWS cloud.
+
+</details>
+
+<details>
+<summary>
 
 ## 3. Core Use Cases
 
+</summary>
+
 ### Web Applications
 
-Run web servers such as:
-- NGINX
-- Apache
-- Node.js
-- Java applications
-- Python applications
+Run websites, APIs, and backend services on EC2 instances.
 
-### Application Servers
+Common design:
 
-EC2 can host backend services, APIs, and business logic.
+- ALB in public subnets
+- EC2 instances in private subnets
+- Auto Scaling Group across multiple AZs
 
-### Databases
+### Custom Applications
 
-You can run databases on EC2, but for the SAA exam, managed services like RDS are usually preferred when possible.
+Use EC2 when you need control over the operating system, runtime, installed packages, or server configuration.
+
+### Lift-and-Shift Migration
+
+Move existing applications from on-premises servers to EC2 with minimal changes.
 
 ### Batch Processing
 
-EC2 can run jobs such as:
+Run compute-heavy jobs such as:
+
 - Data processing
-- Image processing
-- Report generation
-- Machine learning workloads
+- Rendering
+- Simulations
+- Scheduled scripts
 
 ### Development and Testing
 
-EC2 is useful for temporary environments where developers need servers quickly.
+Launch temporary EC2 instances for dev/test environments.
+
+Stop or terminate them when not needed to reduce cost.
+
+### Hosting Containers
+
+EC2 can run container platforms such as:
+
+- Docker
+- ECS on EC2
+- EKS worker nodes
+- Self-managed Kubernetes
 
 ### High-Performance Computing
 
-Specialized EC2 instance types support workloads that need:
-- High CPU
-- Large memory
-- GPUs
-- Fast networking
+Use specialized EC2 instance types for workloads needing high CPU, GPU, memory, or networking performance.
 
 </details>
 
 <details>
-<summary>## 4. Important Features for SAA</summary>
+<summary>
 
 ## 4. Important Features for SAA
 
-### Instance Types
+</summary>
 
-EC2 instance types are optimized for different workloads.
+### Instance
 
-| Instance Family | Best For | Example Use Case |
-|---|---|---|
-| General Purpose | Balanced CPU, memory, and networking | Web servers, small databases |
-| Compute Optimized | High CPU | Batch processing, gaming servers |
-| Memory Optimized | High RAM | In-memory databases, caching |
-| Storage Optimized | High disk I/O | Data warehouses, log processing |
-| Accelerated Computing | GPUs or special hardware | Machine learning, graphics processing |
+An EC2 instance is a virtual server.
+
+It runs an operating system and applications.
 
 ### AMI
 
-An Amazon Machine Image, or AMI, is a template used to launch EC2 instances.
+An Amazon Machine Image, or AMI, is a template used to launch an EC2 instance.
 
-An AMI includes:
+It includes:
+
 - Operating system
 - Software packages
 - Configuration
-- Root volume settings
+- Root volume template
+
+### Instance Types
+
+Instance types define the compute, memory, storage, and network capacity of the instance.
+
+| Family | Best For | Example |
+|---|---|---|
+| General Purpose | Balanced workloads | Web servers, small databases |
+| Compute Optimized | CPU-heavy workloads | Gaming, batch processing |
+| Memory Optimized | Memory-heavy workloads | In-memory databases |
+| Storage Optimized | High disk throughput | Big data, data warehouses |
+| Accelerated Computing | GPU/ML workloads | Machine learning, graphics |
 
 ### User Data
 
-User Data is a script that runs when an EC2 instance first starts.
+User data is a script that runs when an instance launches.
 
 Common uses:
-- Install software
+
+- Install packages
+- Start services
+- Configure applications
 - Download application code
-- Configure services
-- Bootstrap web servers
-
-Example:
-
-```bash
-#!/bin/bash
-yum update -y
-yum install -y httpd
-systemctl start httpd
-systemctl enable httpd
-echo "Hello from EC2" > /var/www/html/index.html
-```
-
-### Instance Metadata
-
-Instance metadata lets an EC2 instance get information about itself.
-
-Examples:
-- Instance ID
-- Private IP
-- Public IP
-- IAM role credentials
-- Availability Zone
-
-For security, prefer IMDSv2 over IMDSv1.
-
-### Elastic IP
-
-An Elastic IP is a static public IPv4 address that you can attach to an EC2 instance.
-
-Use it when you need a fixed public IP.
-
-Important exam point:
-- Elastic IPs can increase cost if allocated but unused.
-- Prefer DNS names or load balancers when possible.
-
-### Security Groups
-
-Security groups act like virtual firewalls for EC2 instances.
-
-They control inbound and outbound traffic.
-
-Key points:
-- Stateful
-- Allow rules only
-- Attached to ENIs or instances
-- Return traffic is automatically allowed
 
 ### Key Pairs
 
-Key pairs are used to connect securely to EC2 instances.
+Key pairs are used to securely connect to EC2 instances.
 
-| Operating System | Common Access Method |
+Common use:
+
+- SSH for Linux
+- Administrator password decryption for Windows
+
+### Security Groups
+
+Security groups act as virtual firewalls for EC2 instances.
+
+Important points:
+
+- Stateful
+- Allow rules only
+- Attached to ENIs
+- Return traffic is automatically allowed
+
+### Instance Metadata
+
+Instance metadata provides information about the instance from inside the instance.
+
+Examples:
+
+- Instance ID
+- Region
+- Availability Zone
+- IAM role credentials
+
+### IMDSv2
+
+Instance Metadata Service Version 2, or IMDSv2, is more secure than IMDSv1 because it uses session tokens.
+
+Exam tip:
+
+Prefer IMDSv2 for better security.
+
+### IAM Role for EC2
+
+Use an IAM role to give an EC2 instance permissions to access AWS services.
+
+Example:
+
+An EC2 instance needs to read files from S3.
+
+Best practice:
+
+Attach an IAM role to the instance instead of storing access keys on the server.
+
+### Elastic IP
+
+An Elastic IP is a static public IPv4 address.
+
+Use it when an EC2 instance or NAT Gateway needs a fixed public IP.
+
+Exam tip:
+
+Unused Elastic IPs can create cost.
+
+### Public IP vs Private IP
+
+| IP Type | Purpose |
 |---|---|
-| Linux | SSH using private key |
-| Windows | RDP using decrypted administrator password |
+| Private IP | Internal VPC communication |
+| Public IP | Internet communication |
+| Elastic IP | Static public IPv4 address |
 
 ### EBS Volumes
 
-Amazon EBS provides block storage for EC2.
+Elastic Block Store, or EBS, provides persistent block storage for EC2.
 
-Common EBS volume types:
+Important points:
 
-| Volume Type | Use Case |
-|---|---|
-| gp3 | General-purpose SSD, common default choice |
-| io1 / io2 | High-performance workloads needing provisioned IOPS |
-| st1 | Throughput-heavy HDD workloads |
-| sc1 | Low-cost cold HDD workloads |
+- Network-attached storage
+- Persists independently from the instance if configured
+- Used for root and data volumes
+- Can be snapshotted
 
 ### Instance Store
 
-Instance store is temporary storage physically attached to the host.
+Instance store provides temporary storage physically attached to the host.
 
-Important:
+Important points:
+
 - Very fast
-- Data is lost if the instance stops, terminates, or the underlying host fails
-- Not suitable for durable storage
+- Temporary
+- Data is lost when the instance stops, terminates, or underlying hardware fails
+- Good for cache, buffers, and temporary data
 
 ### Placement Groups
 
 Placement groups control how EC2 instances are placed on AWS hardware.
 
-| Placement Group Type | Purpose |
+| Type | Best For |
 |---|---|
 | Cluster | Low-latency, high-throughput workloads |
-| Spread | Separate instances across different hardware |
-| Partition | Separate groups of instances across hardware partitions |
+| Spread | Critical instances separated across hardware |
+| Partition | Large distributed systems like Hadoop or Cassandra |
 
 ### Auto Scaling Group
 
-An Auto Scaling Group automatically adds or removes EC2 instances based on demand.
+An Auto Scaling Group automatically adjusts the number of EC2 instances.
 
-It helps with:
-- Scalability
-- Availability
-- Cost control
-- Self-healing
+It can:
+
+- Add instances when demand increases
+- Remove instances when demand decreases
+- Replace unhealthy instances
+- Spread instances across Availability Zones
 
 ### Load Balancer Integration
 
-EC2 is often used behind Elastic Load Balancing.
+EC2 is commonly used with Elastic Load Balancing.
 
-Common pattern:
+A load balancer distributes traffic across multiple EC2 instances.
 
-```text
-Users → ALB → EC2 Auto Scaling Group
-```
+### Launch Template
+
+A launch template defines how EC2 instances should be launched.
+
+It can include:
+
+- AMI
+- Instance type
+- Key pair
+- Security groups
+- User data
+- IAM role
+- Storage settings
+
+### Hibernation
+
+EC2 hibernation saves memory state to the root EBS volume.
+
+When started again, the instance resumes faster than a normal boot.
+
+Useful when applications take a long time to initialize.
 
 </details>
 
 <details>
-<summary>## 5. Security Model</summary>
+<summary>
 
 ## 5. Security Model
 
+</summary>
+
 ### IAM Permissions
 
-IAM controls who can create, stop, start, terminate, and manage EC2 resources.
+IAM controls who can create, modify, start, stop, terminate, and manage EC2 resources.
 
-Examples:
-- Allow users to start instances
-- Deny users from terminating production instances
-- Allow EC2 to access S3 using an IAM role
+Common permissions:
 
-### IAM Roles for EC2
+| Permission | Purpose |
+|---|---|
+| `ec2:RunInstances` | Launch instances |
+| `ec2:StartInstances` | Start instances |
+| `ec2:StopInstances` | Stop instances |
+| `ec2:TerminateInstances` | Terminate instances |
+| `ec2:CreateSecurityGroup` | Create security groups |
+| `ec2:AuthorizeSecurityGroupIngress` | Add inbound security group rules |
 
-Do not store AWS access keys on EC2 instances.
+### EC2 IAM Role
 
-Instead, attach an IAM role to the instance.
+Use IAM roles for applications running on EC2.
 
-Example:
+Do not store AWS access keys directly on the instance.
 
-```text
-EC2 instance → IAM Role → Access S3 bucket
-```
+### Security Groups
 
-This is more secure because AWS automatically rotates temporary credentials.
+Security groups control inbound and outbound traffic at the instance or ENI level.
 
-### Encryption Options
+Example web server rules:
 
-EC2 commonly uses EBS encryption for attached volumes.
+| Direction | Rule |
+|---|---|
+| Inbound | Allow HTTPS from internet |
+| Inbound | Allow SSH only from trusted IP |
+| Outbound | Allow required outbound traffic |
 
-EBS encryption protects:
-- Data at rest
+### Network ACLs
+
+Network ACLs provide subnet-level traffic filtering.
+
+They are:
+
+- Stateless
+- Allow and deny rules
+- Applied at subnet level
+
+### Key Pair Security
+
+Protect private keys carefully.
+
+If a private key is lost, you cannot directly download it again from AWS.
+
+### Systems Manager Session Manager
+
+Session Manager allows secure access to EC2 instances without opening SSH or RDP ports.
+
+This is often better than using a bastion host.
+
+### Encryption at Rest
+
+Use EBS encryption to protect EC2 volume data.
+
+EBS encryption can protect:
+
+- Root volumes
+- Data volumes
 - Snapshots
 - Volumes created from encrypted snapshots
-- Data moving between the instance and the EBS volume
 
-Encryption uses AWS KMS.
+### Encryption in Transit
 
-### Network Security Controls
+Use secure protocols for network traffic.
 
-EC2 network security includes:
+Examples:
 
-| Control | Purpose |
-|---|---|
-| Security Group | Instance-level firewall |
-| Network ACL | Subnet-level firewall |
-| VPC | Private network boundary |
-| Private Subnet | Keeps instances away from direct internet access |
-| NAT Gateway | Lets private instances access the internet outbound |
-| Bastion Host | Controlled SSH/RDP access to private instances |
-| Systems Manager Session Manager | Secure access without opening SSH/RDP ports |
+- SSH
+- HTTPS
+- TLS
+- VPN
+- IPsec
+
+### Patch Management
+
+You are responsible for patching the operating system and applications on EC2.
+
+AWS manages the physical host infrastructure.
 
 ### Shared Responsibility
 
 AWS is responsible for:
-- Physical data centers
+
 - Physical servers
-- Networking infrastructure
-- Hypervisor
+- Data center security
+- Underlying networking
+- Hardware maintenance
+- Hypervisor infrastructure
 
 You are responsible for:
+
 - Operating system patches
-- Application security
+- Application patches
 - Security group rules
-- IAM permissions
-- Data encryption choices
+- IAM roles and permissions
+- Data encryption
+- Key pair security
 - Installed software
-
-### Exam Tip
-
-For secure EC2 access, prefer Systems Manager Session Manager when possible because it avoids opening inbound SSH or RDP ports.
+- Firewall and access configuration inside the instance
 
 </details>
 
 <details>
-<summary>## 6. High Availability / Durability Behavior</summary>
+<summary>
 
 ## 6. High Availability / Durability Behavior
 
+</summary>
+
 ### Availability
 
-A single EC2 instance is not highly available by itself.
+An EC2 instance runs in one Availability Zone.
 
-If the instance fails, the application may go down unless you design for redundancy.
+If that AZ has a problem, the instance can be affected.
+
+For high availability, run multiple instances across multiple AZs.
 
 ### Multi-AZ Design
 
-For high availability, deploy EC2 instances across multiple Availability Zones.
+A common high-availability design uses:
 
-Common architecture:
+- Auto Scaling Group across multiple AZs
+- Application Load Balancer in multiple public subnets
+- EC2 instances in private subnets
+- Health checks to replace unhealthy instances
 
-```text
-Application Load Balancer
-        ↓
-EC2 instances in multiple AZs
-        ↓
-Database or backend service
-```
+### Fault Tolerance
 
-### Auto Scaling for Fault Tolerance
+EC2 itself is not automatically fault tolerant as a single instance.
 
-Auto Scaling Groups can replace unhealthy instances automatically.
+You design fault tolerance using:
 
-If an instance fails:
-1. Health check detects failure
-2. Auto Scaling terminates unhealthy instance
-3. Auto Scaling launches a replacement instance
+- Multiple instances
+- Multiple Availability Zones
+- Load balancers
+- Auto Scaling Groups
+- Backups and AMIs
+- Stateless application design
+
+### Auto Recovery
+
+EC2 auto recovery can recover an impaired instance on different underlying hardware.
+
+This helps with some instance-level failures.
 
 ### EBS Durability
 
-EBS volumes are replicated within a single Availability Zone.
+EBS volumes are replicated within the same Availability Zone.
 
-Important:
-- EBS is durable within one AZ
-- EBS volumes cannot be directly attached across AZs
-- To move data to another AZ, use snapshots
+Important point:
 
-### AMIs and Snapshots
+EBS is AZ-scoped, not Region-scoped.
 
-You can create AMIs or EBS snapshots to recover or recreate instances.
+### EBS Snapshots
 
-Snapshots are stored in Amazon S3 behind the scenes, but you manage them through EBS.
+EBS snapshots are stored in S3-managed infrastructure and can be used to restore volumes.
+
+Snapshots are useful for backup and disaster recovery.
+
+### Instance Store Durability
+
+Instance store is temporary.
+
+Data can be lost when:
+
+- Instance stops
+- Instance terminates
+- Hardware fails
+
+Do not store critical data only on instance store.
 
 ### Multi-Region Behavior
 
-EC2 instances are regional resources but run inside specific Availability Zones.
+EC2 instances are regional and AZ-specific resources.
 
-For multi-region disaster recovery:
-- Copy AMIs to another Region
-- Copy snapshots to another Region
-- Use Route 53 failover
-- Use infrastructure as code to recreate environments
+For Multi-Region architectures, deploy separate EC2 fleets in each Region and use Route 53 or Global Accelerator for routing.
 
-### Memory Hook
+### Stateless Design
 
-One EC2 instance = not highly available
+For high availability, keep EC2 application servers stateless when possible.
 
-Multiple EC2 instances across multiple AZs = highly available
+Store state in durable services such as:
+
+- RDS
+- Aurora
+- DynamoDB
+- S3
+- EFS
+- ElastiCache
 
 </details>
 
 <details>
-<summary>## 7. Cost Optimization Options</summary>
+<summary>
 
 ## 7. Cost Optimization Options
 
-### EC2 Pricing Models
+</summary>
 
-| Pricing Model | Best For | Key Idea |
-|---|---|---|
-| On-Demand | Short-term or unpredictable workloads | Pay per use, no commitment |
-| Reserved Instances | Steady workloads | Commit for 1 or 3 years |
-| Savings Plans | Flexible long-term compute usage | Commit to hourly spend |
-| Spot Instances | Fault-tolerant workloads | Cheapest, but can be interrupted |
-| Dedicated Hosts | Compliance or licensing needs | Physical server dedicated to you |
-| Dedicated Instances | Instance isolation | Runs on dedicated hardware |
+### Choose the Right Purchasing Option
+
+EC2 has several pricing models.
+
+| Option | Best For |
+|---|---|
+| On-Demand | Short-term, unpredictable workloads |
+| Reserved Instances | Steady-state workloads |
+| Savings Plans | Flexible long-term compute savings |
+| Spot Instances | Fault-tolerant, flexible workloads |
+| Dedicated Hosts | Compliance or licensing needs |
 
 ### On-Demand Instances
 
-Use On-Demand when:
-- Workload is unpredictable
-- You need flexibility
-- You are testing or learning
-- You do not want long-term commitment
+On-Demand instances are flexible and require no long-term commitment.
+
+Use them for:
+
+- Testing
+- Short-term workloads
+- Unpredictable workloads
 
 ### Reserved Instances
 
-Use Reserved Instances when:
-- Usage is steady
-- You can commit for 1 or 3 years
-- You want lower cost than On-Demand
+Reserved Instances provide discounts for steady workloads.
+
+Use them when you know the instance family, Region, and usage pattern.
 
 ### Savings Plans
 
-Savings Plans are often more flexible than Reserved Instances.
+Savings Plans provide discounts in exchange for a committed hourly spend.
 
-They are good when you know your compute spend but want flexibility across instance families, sizes, or services depending on the plan type.
+They are more flexible than traditional Reserved Instances.
 
 ### Spot Instances
 
-Spot Instances are the cheapest option but can be interrupted by AWS.
+Spot Instances use spare AWS capacity at a large discount.
 
-Good for:
+Best for workloads that can handle interruption.
+
+Examples:
+
 - Batch jobs
 - Big data processing
 - CI/CD workers
-- Fault-tolerant workloads
+- Image rendering
+- Stateless workers
 
-Bad for:
-- Critical databases
-- Stateful applications
-- Workloads that cannot handle interruption
+### Spot Interruption
 
-### Right Sizing
+Spot Instances can be interrupted when AWS needs the capacity back.
 
-Choose the correct instance size.
+Your application should handle interruption gracefully.
 
-Avoid:
-- Over-provisioning CPU
-- Over-provisioning memory
-- Running idle instances
+### Auto Scaling for Cost
+
+Use Auto Scaling to match capacity to demand.
+
+This avoids running too many instances during low traffic periods.
+
+### Right-Sizing
+
+Choose instance types based on actual CPU, memory, network, and disk usage.
+
+Use monitoring tools to identify overprovisioned instances.
 
 ### Stop Unused Instances
 
-You can stop instances when they are not needed.
+Stop development and test instances when they are not needed.
 
-Important:
-- Stopped instances do not charge for EC2 compute
-- Attached EBS volumes still cost money
-- Elastic IPs may cost money if unused or incorrectly attached
+Terminating removes the instance.
 
-### Use Auto Scaling
+Stopping keeps EBS-backed data but stops compute charges.
 
-Auto Scaling helps reduce cost by running only the number of instances needed.
+### Use Graviton Instances
 
-### Use gp3 Instead of gp2 When Appropriate
+AWS Graviton-based instances can offer strong price-performance for supported workloads.
 
-For many workloads, gp3 can be more cost-effective because performance can be configured independently from storage size.
+Use them when your application can run on ARM architecture.
+
+### Use EBS Efficiently
+
+Reduce storage cost by:
+
+- Deleting unused EBS volumes
+- Deleting old snapshots
+- Choosing the right EBS volume type
+- Avoiding overprovisioned IOPS
 
 </details>
 
 <details>
-<summary>## 8. Common Exam Traps</summary>
+<summary>
 
 ## 8. Common Exam Traps
 
-### Trap 1: EC2 Is Not Automatically Highly Available
+</summary>
 
-A single EC2 instance can fail.
+### Stop vs Terminate
 
-For high availability, use:
-- Multiple EC2 instances
-- Multiple Availability Zones
-- Load balancer
-- Auto Scaling Group
+| Action | Meaning |
+|---|---|
+| Stop | Instance shuts down but can be started again |
+| Terminate | Instance is deleted |
 
-### Trap 2: Security Groups Are Stateful
+Exam tip:
 
-If inbound traffic is allowed, the response traffic is automatically allowed.
+EBS root volume deletion depends on the `DeleteOnTermination` setting.
 
-You do not need a separate outbound rule for return traffic in normal cases.
+### Reboot vs Stop/Start
 
-### Trap 3: NACLs Are Stateless
+| Action | Effect |
+|---|---|
+| Reboot | Same host usually, instance stays running logically |
+| Stop/Start | Instance may move to new underlying host |
 
-Network ACLs require both inbound and outbound rules.
-
-Do not confuse them with security groups.
-
-### Trap 4: Instance Store Is Temporary
+### Instance Store Data Is Temporary
 
 Instance store data is not durable.
 
-Do not use it for important data unless the data is replicated or temporary.
+If the instance stops or fails, the data can be lost.
 
-### Trap 5: EBS Is AZ-Specific
+### EBS Is AZ-Scoped
 
 An EBS volume exists in one Availability Zone.
 
-You cannot directly attach an EBS volume from one AZ to an EC2 instance in another AZ.
+To move data to another AZ or Region, use snapshots.
 
-### Trap 6: Public IP Changes After Stop and Start
+### Security Groups Are Stateful
 
-For many EC2 instances, the public IPv4 address changes after stopping and starting.
+Return traffic is automatically allowed.
 
-Use an Elastic IP if you need a fixed public IP.
+You do not need to create separate inbound rules for response traffic.
 
-### Trap 7: IAM Role Is Better Than Access Keys
+### NACLs Are Stateless
 
-Never hardcode AWS access keys on EC2.
+NACLs require both inbound and outbound rules.
 
-Use an IAM role attached to the instance.
+Return traffic must be explicitly allowed.
 
-### Trap 8: Spot Instances Can Be Interrupted
+### Public Subnet Requirement
 
-Spot is cheap, but AWS can reclaim capacity.
+An EC2 instance needs more than a public IP to access the internet.
 
-Use Spot only for workloads that can tolerate interruption.
+It also needs:
 
-### Trap 9: Stopping Is Not the Same as Terminating
+- Subnet route to Internet Gateway
+- Security group allowing traffic
+- NACL allowing traffic
 
-| Action | Result |
+### Private Instance Internet Access
+
+An EC2 instance in a private subnet needs a NAT Gateway or NAT instance for outbound internet access.
+
+### IAM Role Is Better Than Access Keys
+
+For applications on EC2, use IAM roles.
+
+Do not store long-term AWS access keys on the instance.
+
+### Placement Group Types Are Different
+
+| Type | Exam Clue |
 |---|---|
-| Stop | Instance shuts down, EBS root volume usually remains |
-| Start | Instance boots again |
-| Terminate | Instance is deleted |
+| Cluster | Low latency and high throughput |
+| Spread | Separate critical instances |
+| Partition | Large distributed workloads |
 
-### Trap 10: User Data Runs at First Boot by Default
+### Spot Is Not for Critical Uninterruptible Workloads
 
-User Data normally runs only during the first launch unless configured otherwise.
+Spot Instances can be interrupted.
+
+Do not choose Spot for workloads that cannot tolerate interruption.
+
+### AMI Is Regional
+
+AMIs are regional.
+
+To use an AMI in another Region, copy it to that Region.
 
 </details>
 
 <details>
-<summary>## 9. Compare With Similar Services</summary>
+<summary>
 
 ## 9. Compare With Similar Services
 
-### EC2 vs Similar AWS Compute Services
+</summary>
 
-| Service | What It Is | Choose It When |
-|---|---|---|
-| EC2 | Virtual servers | You need full control over OS and runtime |
-| Lambda | Serverless functions | You want event-driven code without managing servers |
-| ECS | Container orchestration | You want to run Docker containers |
-| EKS | Managed Kubernetes | You need Kubernetes on AWS |
-| Elastic Beanstalk | Platform as a Service | You want AWS to manage deployment infrastructure |
-| Lightsail | Simplified VPS service | You need a simple low-cost server |
-| Fargate | Serverless container compute | You want containers without managing EC2 instances |
+### Service Comparison Table
+
+| Service | Main Purpose | Best For | Choose When |
+|---|---|---|---|
+| EC2 | Virtual servers | Full control over compute | You need OS-level control or custom server setup |
+| Lambda | Serverless functions | Event-driven short tasks | You want to run code without managing servers |
+| ECS | Container orchestration | Running Docker containers | You want managed container scheduling |
+| EKS | Managed Kubernetes | Kubernetes workloads | You need Kubernetes compatibility |
+| Fargate | Serverless containers | Containers without managing EC2 | You want containers but no server management |
+| Elastic Beanstalk | Managed app platform | Easy app deployment | You want AWS to manage app infrastructure |
+| Lightsail | Simple VPS | Simple websites/apps | You want simplified cloud servers |
 
 ### EC2 vs Lambda
 
 | Feature | EC2 | Lambda |
 |---|---|---|
-| Server management | You manage server | AWS manages server |
-| Runtime duration | Long-running | Short-lived functions |
-| Scaling | Manual or Auto Scaling | Automatic |
-| Control | High | Lower |
-| Best for | Full applications, custom environments | Event-driven tasks |
+| Server management | You manage OS and runtime | AWS manages servers |
+| Runtime duration | Long-running supported | Max 15 minutes |
+| Scaling | You configure | Automatic |
+| Best for | Custom servers and long-running apps | Event-driven functions |
+| Pricing | Pay for instance runtime | Pay per request and duration |
 
-### EC2 vs ECS
+### EC2 vs ECS/Fargate
 
-| Feature | EC2 | ECS |
+| Feature | EC2 | ECS on Fargate |
 |---|---|---|
-| Main purpose | Virtual machines | Containers |
-| You manage OS | Yes | Sometimes, if using EC2 launch type |
-| Best for | Traditional server workloads | Containerized apps |
+| Workload style | Virtual machines | Containers |
+| Server management | You manage instances | AWS manages serverless compute |
+| Control | More OS-level control | Less infrastructure control |
+| Best for | Traditional apps | Containerized apps without server management |
 
 ### EC2 vs Elastic Beanstalk
 
 | Feature | EC2 | Elastic Beanstalk |
 |---|---|---|
-| Abstraction level | Lower-level | Higher-level |
-| Control | More control | Less manual setup |
-| Best for | Custom infrastructure | Simple app deployment |
+| Level | Infrastructure | Platform |
+| Control | High | Moderate |
+| Management | Manual setup | AWS provisions common resources |
+| Best for | Custom infrastructure | Quick app deployment |
 
-### Exam Decision Guide
+### EC2 vs Lightsail
 
-| Requirement | Best Choice |
-|---|---|
-| Full OS control | EC2 |
-| Run code without servers | Lambda |
-| Run containers without managing servers | ECS with Fargate |
-| Run Kubernetes | EKS |
-| Simple web app deployment | Elastic Beanstalk |
-| Simple VPS-like hosting | Lightsail |
+| Feature | EC2 | Lightsail |
+|---|---|---|
+| Flexibility | High | Simplified |
+| Networking | Advanced VPC control | Simpler networking |
+| Best for | Enterprise/cloud-native workloads | Simple websites or small apps |
+| Exam focus | Very important | Less common for SAA |
+
+### When to Choose EC2
+
+Choose EC2 when:
+
+- You need virtual machines
+- You need OS-level control
+- You need long-running compute
+- You need custom software installation
+- You are migrating traditional servers
+- You need specific instance types such as GPU or high-memory
+- Lambda or Fargate does not fit the workload
 
 </details>
 
 <details>
-<summary>## 10. Mini Architecture Example</summary>
+<summary>
 
 ## 10. Mini Architecture Example
 
+</summary>
+
 ### Scenario
 
-A company wants to host a highly available web application using EC2.
+A company wants to run a highly available web application on EC2.
 
-Requirements:
-- Users access the app from the internet
-- App must survive instance failure
-- App must run across multiple Availability Zones
-- Instances should scale based on traffic
-- EC2 instances should not store AWS access keys
+Users should access the application through a load balancer, and EC2 instances should scale automatically based on demand.
 
 ### Architecture
 
+Use an Application Load Balancer across public subnets and EC2 instances in private subnets across multiple Availability Zones.
+
+An Auto Scaling Group launches and replaces EC2 instances.
+
 ```mermaid
-flowchart TB
-    Users["Users"] --> Route53["Route 53 DNS"]
-    Route53 --> ALB["Application Load Balancer"]
+flowchart TD
+    A[Internet Users] --> B[Route 53<br/>DNS]
+    B --> C[Application Load Balancer<br/>Public Subnets]
 
-    ALB --> EC2A["EC2 Instance<br/>AZ A"]
-    ALB --> EC2B["EC2 Instance<br/>AZ B"]
+    C --> D[EC2 Instance<br/>Private Subnet AZ A]
+    C --> E[EC2 Instance<br/>Private Subnet AZ B]
 
-    EC2A --> RDS["Amazon RDS<br/>Multi-AZ Database"]
-    EC2B --> RDS
+    F[Auto Scaling Group] --> D
+    F --> E
 
-    ASG["Auto Scaling Group"] --> EC2A
-    ASG --> EC2B
+    D --> G[(RDS / Aurora Database<br/>Private Subnets)]
+    E --> G
 
-    IAM["IAM Role"] --> EC2A
-    IAM --> EC2B
+    D --> H[S3 Bucket<br/>Static Files / Backups]
+    E --> H
 
-    S3["Amazon S3"] --> EC2A
-    S3 --> EC2B
+    I[CloudWatch<br/>Metrics and Alarms] --> F
 
-    classDef blue fill:#1E90FF,stroke:#003B73,color:#ffffff,stroke-width:2px;
-    classDef green fill:#22C55E,stroke:#166534,color:#ffffff,stroke-width:2px;
-    classDef orange fill:#F97316,stroke:#9A3412,color:#ffffff,stroke-width:2px;
-    classDef purple fill:#A855F7,stroke:#581C87,color:#ffffff,stroke-width:2px;
-    classDef red fill:#EF4444,stroke:#7F1D1D,color:#ffffff,stroke-width:2px;
-
-    class Users,Route53 blue;
-    class ALB orange;
-    class EC2A,EC2B green;
-    class ASG purple;
-    class RDS red;
-    class IAM,S3 blue;
+    style A fill:#2196F3,stroke:#0D47A1,color:#fff
+    style B fill:#9C27B0,stroke:#4A148C,color:#fff
+    style C fill:#FF9800,stroke:#E65100,color:#fff
+    style D fill:#4CAF50,stroke:#1B5E20,color:#fff
+    style E fill:#4CAF50,stroke:#1B5E20,color:#fff
+    style F fill:#00BCD4,stroke:#006064,color:#fff
+    style G fill:#F44336,stroke:#B71C1C,color:#fff
+    style H fill:#673AB7,stroke:#311B92,color:#fff
+    style I fill:#E91E63,stroke:#880E4F,color:#fff
 ```
 
-### How It Works
+### Why This Is Good
 
-1. Users access the application through Route 53.
-2. Route 53 sends traffic to the Application Load Balancer.
-3. The load balancer distributes traffic across EC2 instances in multiple AZs.
-4. Auto Scaling adds or removes EC2 instances based on demand.
-5. EC2 instances connect to RDS for database storage.
-6. EC2 instances use IAM roles to access AWS services like S3 securely.
+- Load balancer distributes traffic across instances
+- EC2 instances run in private subnets
+- Auto Scaling adds or removes capacity automatically
+- Multi-AZ design improves availability
+- CloudWatch alarms can trigger scaling actions
+- Database remains private
+- S3 stores static files or backups durably
 
-### Why This Is Good for SAA
+### Exam Answer Pattern
 
-This architecture demonstrates:
-- High availability across multiple AZs
-- Fault tolerance with Auto Scaling
-- Secure access using IAM roles
-- Better traffic distribution using a load balancer
-- Separation of compute, database, and storage layers
+If the question says:
+
+“Run a traditional application with full control over the operating system and scale it across multiple Availability Zones.”
+
+Think:
+
+EC2 with Auto Scaling Group and Elastic Load Balancer.
 
 ### Final Memory Hook
 
-EC2 exam pattern:
+EC2 is for virtual servers.
 
-```text
-Need full server control? Choose EC2.
-Need high availability? Use multiple AZs + ALB + Auto Scaling.
-Need secure AWS access? Use IAM roles, not access keys.
-Need cheaper compute? Choose Reserved, Savings Plans, or Spot based on workload.
-```
+AMI is the server template.
+
+EBS is persistent block storage.
+
+Instance store is temporary storage.
+
+Security groups protect instances.
+
+Auto Scaling adjusts capacity.
+
+ELB distributes traffic.
 
 </details>
