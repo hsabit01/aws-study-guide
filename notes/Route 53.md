@@ -1,7 +1,7 @@
 # Route 53
 
 <details>
-<summary><strong>## 1. Definition</strong></summary>
+<summary><strong> 1. Definition</strong></summary>
 
 Amazon Route 53 is AWS’s highly available and scalable DNS service.
 
@@ -26,7 +26,7 @@ Route 53 = “Phone book of the internet” + smart traffic router.
 ---
 
 <details>
-<summary><strong>## 2. What Problem Does It Solve?</strong></summary>
+<summary><strong> 2. What Problem Does It Solve?</strong></summary>
 
 Route 53 solves the problem of connecting human-friendly domain names to cloud resources.
 
@@ -52,7 +52,7 @@ Route 53 also helps with:
 ---
 
 <details>
-<summary><strong>## 3. Core Use Cases</strong></summary>
+<summary><strong> 3. Core Use Cases</strong></summary>
 
 Common real-world Route 53 use cases:
 
@@ -73,7 +73,7 @@ Common real-world Route 53 use cases:
 ---
 
 <details>
-<summary><strong>## 4. Important Features for SAA</strong></summary>
+<summary><strong> 4. Important Features for SAA</strong></summary>
 
 ### Hosted Zones
 
@@ -372,7 +372,7 @@ DNSSEC improves DNS authenticity and integrity, not encryption of traffic.
 ---
 
 <details>
-<summary><strong>## 5. Security Model</strong></summary>
+<summary><strong> 5. Security Model</strong></summary>
 
 ### IAM Permissions
 
@@ -443,7 +443,7 @@ AWS keeps Route 53 available. You are responsible for correct DNS configuration.
 ---
 
 <details>
-<summary><strong>## 6. High Availability / Durability Behavior</strong></summary>
+<summary><strong> 6. High Availability / Durability Behavior</strong></summary>
 
 ### Availability
 
@@ -511,7 +511,7 @@ For SAA, focus more on:
 ---
 
 <details>
-<summary><strong>## 7. Cost Optimization Options</strong></summary>
+<summary><strong> 7. Cost Optimization Options</strong></summary>
 
 Route 53 pricing commonly includes:
 
@@ -555,7 +555,7 @@ TTL is a cost and change-speed lever.
 ---
 
 <details>
-<summary><strong>## 8. Common Exam Traps</strong></summary>
+<summary><strong> 8. Common Exam Traps</strong></summary>
 
 ### Trap 1: Alias vs CNAME
 
@@ -653,7 +653,7 @@ It does not replace:
 ---
 
 <details>
-<summary><strong>## 9. Compare With Similar Services</strong></summary>
+<summary><strong> 9. Compare With Similar Services</strong></summary>
 
 | Service | Main Purpose | Choose It When |
 |---|---|---|
@@ -682,7 +682,7 @@ It does not replace:
 ---
 
 <details>
-<summary><strong>## 10. Mini Architecture Example</strong></summary>
+<summary><strong> 10. Mini Architecture Example</strong></summary>
 
 ### Scenario
 
