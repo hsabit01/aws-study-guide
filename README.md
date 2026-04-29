@@ -108,13 +108,3 @@ This guide organizes the note files in `notes/` into a practical study path for 
 | 5 | AWS Database Migration Service | [DMS](notes/DMS.md) | Amazon RDS, AWS DataSync | This is a cross-reference to the earlier database note for migration-focused exam cases. |
 | 6 | AWS Direct Connect | [Direct Connect](notes/Direct%20Connect.md) | AWS Site-to-Site VPN, AWS Outposts | This is a cross-reference to the earlier networking note for dedicated hybrid connectivity. |
 | 7 | AWS Site-to-Site VPN | [Site-to-Site VPN](notes/Site-to-Site%20VPN.md) | AWS Direct Connect, Amazon VPC | This is a cross-reference to the earlier networking note for quick hybrid connectivity. |
-
-## Recommended Filename Corrections
-
-| Current Filename | Recommended Filename | Reason |
-|---|---|---|
-| `ElastiCash.md` | `ElastiCache.md` | Correct AWS service spelling. |
-| `Kensis Data Stream.md` | `Kinesis Data Streams.md` | Correct AWS service name and plural form. |
-| `Kensis Data Firehose.md` | `Kinesis Data Firehose.md` | Correct AWS service spelling. |
-| `Secret Management Service.md` | `Secrets Manager.md` | Correct AWS service name. |
-| `System Manager.md` | `Systems Manager.md` | Correct AWS service name. |
