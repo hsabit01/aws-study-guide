@@ -65,7 +65,7 @@ This guide organizes the note files in `notes/` into a practical study path for 
 | 1 | Amazon SQS | [SQS](notes/SQS.md) | Amazon SNS, Amazon EventBridge | Queueing basics are central to decoupled application design in the SAA exam. |
 | 2 | Amazon SNS | [SNS](notes/SNS.md) | Amazon SQS, Amazon EventBridge | Pub/sub delivery is commonly compared against queueing and event bus patterns. |
 | 3 | Amazon EventBridge | [EventBridge](notes/EventBridge.md) | AWS Lambda, Amazon SNS | Event buses are best learned after basic queueing and notification patterns. |
-| 4 | Amazon Kinesis Data Streams | [Kinesis Data Streams](notes/Kinesis%20Data%20Stream.md) | Amazon Kinesis Data Firehose, Amazon SQS | Streaming ingestion belongs here with other event and messaging patterns. |
+| 4 | Amazon Kinesis Data Streams | [Kinesis Data Streams](notes/Kinesis%20Data%20Streams.md) | Amazon Kinesis Data Firehose, Amazon SQS | Streaming ingestion belongs here with other event and messaging patterns. |
 | 5 | Amazon Kinesis Data Firehose | [Kinesis Data Firehose](notes/Kinesis%20Data%20Firehose.md) | Amazon Kinesis Data Streams, Amazon S3 | Firehose is usually tested as the managed delivery option for streaming data. |
 
 ## 07 - Security, Encryption, and Identity
