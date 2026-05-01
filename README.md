@@ -55,7 +55,7 @@ This guide organizes the note files in `notes/` into a practical study path for 
 | 1 | Amazon RDS | [RDS](notes/RDS.md) | Amazon Aurora, Amazon EC2 | Managed relational databases should come before AWS-specific database optimizations. |
 | 2 | Amazon Aurora | [Aurora](notes/Aurora.md) | Amazon RDS, Amazon ElastiCache | Aurora is easiest to understand once standard RDS concepts are familiar. |
 | 3 | Amazon DynamoDB | [DynamoDB](notes/DynamoDB.md) | AWS Lambda, Amazon EventBridge | NoSQL design patterns are a distinct exam area and contrast well with relational services. |
-| 4 | Amazon ElastiCache | [ElastiCache](notes/ElastiCash.md) | Amazon RDS, Amazon Aurora | Caching belongs here because the exam often asks when to offload reads from databases. |
+| 4 | Amazon ElastiCache | [ElastiCache](notes/ElastiCache.md) | Amazon RDS, Amazon Aurora | Caching belongs here because the exam often asks when to offload reads from databases. |
 | 5 | AWS Database Migration Service | [DMS](notes/DMS.md) | Amazon RDS, Amazon Aurora | Database migration patterns are usually tested alongside target database choices. |
 
 ## 06 - Messaging, Streaming, and Event-Driven Architecture
