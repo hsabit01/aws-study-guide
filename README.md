@@ -84,7 +84,7 @@ This guide organizes the note files in `notes/` into a practical study path for 
 | Order | Service | File | Learn With | Why It Belongs Here |
 |---:|---|---|---|---|
 | 1 | Amazon CloudWatch | [CloudWatch](notes/CloudWatch.md) | AWS Lambda, Amazon EC2 | Monitoring, logs, metrics, and alarms are core operational concepts across AWS. |
-| 2 | AWS Systems Manager | [Systems Manager](notes/System%20Manager.md) | Amazon EC2, AWS CloudWatch | Operational automation and patching are common EC2 administration exam themes. |
+| 2 | AWS Systems Manager | [Systems Manager](notes/Systems%20Manager.md) | Amazon EC2, AWS CloudWatch | Operational automation and patching are common EC2 administration exam themes. |
 | 3 | AWS Backup | [Backup](notes/Backup.md) | Amazon EBS, Amazon RDS | Centralized backup strategy belongs here because it supports resilience across workloads. |
 | 4 | Disaster Recovery | [Disaster Recovery](notes/Disaster%20Recovery.md) | AWS Backup, Amazon Route 53 | DR patterns connect backup, failover, RTO, and RPO decision-making. |
 
