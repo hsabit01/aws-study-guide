@@ -1,133 +1,133 @@
-# AWS SAA Study Guide
+# AWS Study Guide
 
-This guide organizes the note files in `notes/` into a practical study path for AWS Solutions Architect Associate topics.
+Grouped index of AWS service notes in this repository.
 
 ## 1. Identity, Access, Certificates & Secrets
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| IAM | [Open notes](notes/IAM.md) |
-| IAM Identity Center | [Open notes](notes/IAM Identity Center.md) |
-| Amazon Cognito | [Open notes](notes/Amazon Cognito.md) |
-| Directory Service | [Open notes](notes/Directory Service.md) |
-| ACM | [Open notes](notes/ACM.md) |
-| KMS | [Open notes](notes/KMS.md) |
-| Secrets Manager | [Open notes](notes/Secrets Manager.md) |
+| [IAM](notes/IAM.md) | Manage AWS users, groups, roles, policies, and permissions. |
+| [IAM Identity Center](notes/IAM%20Identity%20Center.md) | Centralized workforce access and single sign-on for AWS accounts and applications. |
+| [Amazon Cognito](notes/Amazon%20Cognito.md) | Add user sign-up, sign-in, and access control to web and mobile apps. |
+| [Directory Service](notes/Directory%20Service.md) | Managed Microsoft Active Directory and directory integration for AWS workloads. |
+| [ACM](notes/ACM.md) | Provision, manage, and renew SSL/TLS certificates for AWS resources. |
+| [KMS](notes/KMS.md) | Create and manage encryption keys for protecting data across AWS services. |
+| [Secrets Manager](notes/Secrets%20Manager.md) | Store, rotate, and retrieve application secrets such as passwords and API keys. |
 
 ## 2. Security, Threat Detection & Compliance
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| GuardDuty | [Open notes](notes/GuardDuty.md) |
-| Amazon Inspector | [Open notes](notes/Amazon Inspector.md) |
-| Amazon Macie | [Open notes](notes/Amazon Macie.md) |
-| AWS Shield | [Open notes](notes/AWS Shield.md) |
-| WAF | [Open notes](notes/WAF.md) |
-| Network Firewall | [Open notes](notes/Network Firewall.md) |
-| CloudTrail | [Open notes](notes/CloudTrail.md) |
-| Config | [Open notes](notes/Config.md) |
+| [GuardDuty](notes/GuardDuty.md) | Detect threats and suspicious activity across AWS accounts, workloads, and data. |
+| [Amazon Inspector](notes/Amazon%20Inspector.md) | Automatically scan workloads for software vulnerabilities and unintended network exposure. |
+| [Amazon Macie](notes/Amazon%20Macie.md) | Discover and protect sensitive data, especially in Amazon S3. |
+| [AWS Shield](notes/AWS%20Shield.md) | Protect applications from distributed denial-of-service attacks. |
+| [WAF](notes/WAF.md) | Filter and block malicious HTTP and HTTPS web requests. |
+| [Network Firewall](notes/Network%20Firewall.md) | Deploy managed network firewall protection for VPC traffic. |
+| [CloudTrail](notes/CloudTrail.md) | Record AWS API activity for auditing, governance, and compliance. |
+| [Config](notes/Config.md) | Track resource configuration changes and evaluate compliance rules. |
 
 ## 3. Compute, Containers & Application Hosting
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| EC2 | [Open notes](notes/EC2.md) |
-| Lambda | [Open notes](notes/Lambda.md) |
-| ECS | [Open notes](notes/ECS.md) |
-| EKS | [Open notes](notes/EKS.md) |
-| Elastic Beanstalk | [Open notes](notes/Elastic Beanstalk.md) |
-| AWS App Runner | [Open notes](notes/AWS App Runner.md) |
-| AWS Batch | [Open notes](notes/AWS Batch.md) |
-| AWS Auto Scaling | [Open notes](notes/AWS Auto Scaling.md) |
-| AWS Amplify | [Open notes](notes/AWS Amplify.md) |
-| Serverless | [Open notes](notes/Serverless.md) |
+| [EC2](notes/EC2.md) | Run virtual servers in the cloud with flexible instance types and pricing options. |
+| [Lambda](notes/Lambda.md) | Run code without managing servers using event-driven serverless functions. |
+| [ECS](notes/ECS.md) | Run and manage Docker containers using AWS-native container orchestration. |
+| [EKS](notes/EKS.md) | Run managed Kubernetes clusters on AWS. |
+| [Elastic Beanstalk](notes/Elastic%20Beanstalk.md) | Deploy and manage applications without manually handling infrastructure. |
+| [AWS App Runner](notes/AWS%20App%20Runner.md) | Deploy containerized web applications and APIs from source code or images. |
+| [AWS Batch](notes/AWS%20Batch.md) | Run batch computing jobs at scale using managed compute environments. |
+| [AWS Auto Scaling](notes/AWS%20Auto%20Scaling.md) | Automatically adjust application capacity based on demand. |
+| [AWS Amplify](notes/AWS%20Amplify.md) | Build, deploy, and host full-stack web and mobile applications. |
+| [Serverless](notes/Serverless.md) | Design applications using managed services without provisioning or managing servers. |
 
 ## 4. Networking, CDN, Edge & Hybrid Connectivity
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| VPC | [Open notes](notes/VPC.md) |
-| Elastic Load Balancer | [Open notes](notes/Elastic Load Balancer.md) |
-| Route 53 | [Open notes](notes/Route 53.md) |
-| CloudFront | [Open notes](notes/CloudFront.md) |
-| Global Accelerator | [Open notes](notes/Global Accelerator.md) |
-| Direct Connect | [Open notes](notes/Direct Connect.md) |
-| Site-to-Site VPN | [Open notes](notes/Site-to-Site VPN.md) |
-| AWS Outposts | [Open notes](notes/AWS Outposts.md) |
+| [VPC](notes/VPC.md) | Create isolated virtual networks for AWS resources. |
+| [Elastic Load Balancer](notes/Elastic%20Load%20Balancer.md) | Distribute application traffic across multiple targets for availability and scale. |
+| [Route 53](notes/Route%2053.md) | Manage DNS, domain registration, and traffic routing. |
+| [CloudFront](notes/CloudFront.md) | Deliver content globally using AWS's content delivery network. |
+| [Global Accelerator](notes/Global%20Accelerator.md) | Improve global application availability and performance using AWS edge locations. |
+| [Direct Connect](notes/Direct%20Connect.md) | Establish dedicated private network connections from on-premises environments to AWS. |
+| [Site-to-Site VPN](notes/Site-to-Site%20VPN.md) | Connect on-premises networks to AWS VPCs using encrypted VPN tunnels. |
+| [AWS Outposts](notes/AWS%20Outposts.md) | Run AWS infrastructure and services on-premises for hybrid cloud workloads. |
 
 ## 5. Storage, Backup & Data Transfer
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| S3 | [Open notes](notes/S3.md) |
-| EBS | [Open notes](notes/EBS.md) |
-| EFS | [Open notes](notes/EFS.md) |
-| FSx | [Open notes](notes/FSx.md) |
-| Storage Gateway | [Open notes](notes/Storage Gateway.md) |
-| Backup | [Open notes](notes/Backup.md) |
-| Snowball | [Open notes](notes/Snowball.md) |
-| DataSync | [Open notes](notes/DataSync.md) |
-| AWS Transfer Family | [Open notes](notes/AWS Transfer Family.md) |
+| [S3](notes/S3.md) | Store and retrieve objects with high durability, scalability, and lifecycle features. |
+| [EBS](notes/EBS.md) | Provide block storage volumes for EC2 instances. |
+| [EFS](notes/EFS.md) | Provide scalable shared file storage for Linux-based workloads. |
+| [FSx](notes/FSx.md) | Run managed file systems such as Windows File Server, Lustre, NetApp ONTAP, and OpenZFS. |
+| [Storage Gateway](notes/Storage%20Gateway.md) | Connect on-premises environments to AWS cloud storage. |
+| [Backup](notes/Backup.md) | Centrally manage and automate backups across AWS services. |
+| [Snowball](notes/Snowball.md) | Transfer large amounts of data using physical edge devices. |
+| [DataSync](notes/DataSync.md) | Move data between on-premises storage, edge locations, and AWS storage services. |
+| [AWS Transfer Family](notes/AWS%20Transfer%20Family.md) | Transfer files into and out of AWS using SFTP, FTPS, FTP, and AS2. |
 
 ## 6. Databases & Caching
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| RDS | [Open notes](notes/RDS.md) |
-| Aurora | [Open notes](notes/Aurora.md) |
-| DynamoDB | [Open notes](notes/DynamoDB.md) |
-| ElastiCache | [Open notes](notes/ElastiCache.md) |
-| Amazon DocumentDB | [Open notes](notes/Amazon DocumentDB.md) |
-| Amazon Keyspaces | [Open notes](notes/Amazon Keyspaces.md) |
-| Amazon Neptune | [Open notes](notes/Amazon Neptune.md) |
-| Amazon Timestream | [Open notes](notes/Amazon Timestream.md) |
+| [RDS](notes/RDS.md) | Run managed relational databases such as MySQL, PostgreSQL, MariaDB, Oracle, and SQL Server. |
+| [Aurora](notes/Aurora.md) | Use AWS's cloud-optimized relational database compatible with MySQL and PostgreSQL. |
+| [DynamoDB](notes/DynamoDB.md) | Use a fully managed NoSQL key-value and document database. |
+| [ElastiCache](notes/ElastiCache.md) | Add managed in-memory caching using Redis or Memcached. |
+| [Amazon DocumentDB](notes/Amazon%20DocumentDB.md) | Run a managed document database compatible with MongoDB workloads. |
+| [Amazon Keyspaces](notes/Amazon%20Keyspaces.md) | Run managed Apache Cassandra-compatible wide-column databases. |
+| [Amazon Neptune](notes/Amazon%20Neptune.md) | Run managed graph databases for highly connected data. |
+| [Amazon Timestream](notes/Amazon%20Timestream.md) | Store and analyze time-series data from applications, IoT, and operations. |
 
 ## 7. Analytics, Data Lake, Search & BI
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| Amazon Athena | [Open notes](notes/Amazon Athena.md) |
-| Glue | [Open notes](notes/Glue.md) |
-| EMR | [Open notes](notes/EMR.md) |
-| Amazon Redshift | [Open notes](notes/Amazon Redshift.md) |
-| Amazon OpenSearch Service | [Open notes](notes/Amazon OpenSearch Service.md) |
-| Amazon QuickSight | [Open notes](notes/Amazon QuickSight.md) |
-| Lake Formation | [Open notes](notes/Lake Formation.md) |
-| SageMaker | [Open notes](notes/SageMaker.md) |
+| [Amazon Athena](notes/Amazon%20Athena.md) | Query data in Amazon S3 using SQL without managing servers. |
+| [Glue](notes/Glue.md) | Discover, prepare, catalog, and transform data for analytics. |
+| [EMR](notes/EMR.md) | Run big data frameworks such as Apache Spark, Hive, and Presto. |
+| [Amazon Redshift](notes/Amazon%20Redshift.md) | Analyze data using a managed cloud data warehouse. |
+| [Amazon OpenSearch Service](notes/Amazon%20OpenSearch%20Service.md) | Search, analyze, and visualize log and application data. |
+| [Amazon QuickSight](notes/Amazon%20QuickSight.md) | Create business intelligence dashboards and data visualizations. |
+| [Lake Formation](notes/Lake%20Formation.md) | Build, secure, and manage data lakes on AWS. |
+| [SageMaker](notes/SageMaker.md) | Build, train, and deploy machine learning models. |
 
 ## 8. Messaging, Streaming, Events & Workflows
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| SQS | [Open notes](notes/SQS.md) |
-| SNS | [Open notes](notes/SNS.md) |
-| Amazon SES | [Open notes](notes/Amazon SES.md) |
-| EventBridge | [Open notes](notes/EventBridge.md) |
-| AWS Step Functions | [Open notes](notes/AWS Step Functions.md) |
-| Amazon MQ | [Open notes](notes/Amazon MQ.md) |
-| Amazon MSK | [Open notes](notes/Amazon MSK.md) |
-| Kinesis Data Streams | [Open notes](notes/Kinesis Data Streams.md) |
-| Kinesis Data Firehose | [Open notes](notes/Kinesis Data Firehose.md) |
-| API Gateway | [Open notes](notes/API Gateway.md) |
-| AWS AppFlow | [Open notes](notes/AWS AppFlow.md) |
+| [SQS](notes/SQS.md) | Decouple applications using managed message queues. |
+| [SNS](notes/SNS.md) | Send pub/sub notifications to applications, users, and services. |
+| [Amazon SES](notes/Amazon%20SES.md) | Send and receive email using a scalable email service. |
+| [EventBridge](notes/EventBridge.md) | Build event-driven applications using event buses and routing rules. |
+| [AWS Step Functions](notes/AWS%20Step%20Functions.md) | Coordinate distributed workflows using visual state machines. |
+| [Amazon MQ](notes/Amazon%20MQ.md) | Run managed message brokers for ActiveMQ and RabbitMQ. |
+| [Amazon MSK](notes/Amazon%20MSK.md) | Run managed Apache Kafka streaming clusters. |
+| [Kinesis Data Streams](notes/Kinesis%20Data%20Streams.md) | Capture and process real-time streaming data. |
+| [Kinesis Data Firehose](notes/Kinesis%20Data%20Firehose.md) | Deliver streaming data to destinations such as S3, Redshift, OpenSearch, and third-party tools. |
+| [API Gateway](notes/API%20Gateway.md) | Create, publish, secure, and monitor APIs at scale. |
+| [AWS AppFlow](notes/AWS%20AppFlow.md) | Transfer data between SaaS applications and AWS services. |
 
 ## 9. Migration, Disaster Recovery & Resilience
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| AWS Application Migration Service | [Open notes](notes/AWS Application Migration Service.md) |
-| DMS | [Open notes](notes/DMS.md) |
-| AWS Elastic Disaster Recovery | [Open notes](notes/AWS Elastic Disaster Recovery.md) |
-| Disaster Recovery | [Open notes](notes/Disaster Recovery.md) |
+| [AWS Application Migration Service](notes/AWS%20Application%20Migration%20Service.md) | Migrate applications to AWS with minimal downtime. |
+| [DMS](notes/DMS.md) | Migrate databases to AWS with support for homogeneous and heterogeneous migrations. |
+| [AWS Elastic Disaster Recovery](notes/AWS%20Elastic%20Disaster%20Recovery.md) | Replicate and recover servers into AWS for disaster recovery. |
+| [Disaster Recovery](notes/Disaster%20Recovery.md) | Plan recovery strategies for workloads, data, and infrastructure failures. |
 
 ## 10. Management, Governance, Operations & Optimization
 
-| Service | Notes |
+| Service | Description |
 |---|---|
-| Organizations | [Open notes](notes/Organizations.md) |
-| AWS CloudFormation | [Open notes](notes/AWS CloudFormation.md) |
-| CloudWatch | [Open notes](notes/CloudWatch.md) |
-| Systems Manager | [Open notes](notes/Systems Manager.md) |
-| AWS Compute Optimizer | [Open notes](notes/AWS Compute Optimizer.md) |
-| Trusted Advisor | [Open notes](notes/Trusted Advisor.md) |
-| AWS Well-Architected Tool | [Open notes](notes/AWS Well-Architected Tool.md) |
+| [Organizations](notes/Organizations.md) | Centrally manage multiple AWS accounts and apply governance controls. |
+| [AWS CloudFormation](notes/AWS%20CloudFormation.md) | Define and provision AWS infrastructure using templates. |
+| [CloudWatch](notes/CloudWatch.md) | Monitor metrics, logs, alarms, and operational events. |
+| [Systems Manager](notes/Systems%20Manager.md) | Manage, patch, automate, and operate AWS and hybrid resources. |
+| [AWS Compute Optimizer](notes/AWS%20Compute%20Optimizer.md) | Recommend optimal compute resources based on utilization patterns. |
+| [Trusted Advisor](notes/Trusted%20Advisor.md) | Review AWS environments for cost, security, performance, fault tolerance, and service limits. |
+| [AWS Well-Architected Tool](notes/AWS%20Well-Architected%20Tool.md) | Review workloads against AWS Well-Architected best practices. |
