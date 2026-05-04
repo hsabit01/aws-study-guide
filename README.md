@@ -8,6 +8,7 @@ Grouped index of AWS service notes in this repository.
 |---|---|
 | [IAM](notes/IAM.md) | Manage AWS users, groups, roles, policies, and permissions. |
 | [IAM Identity Center](notes/IAM%20Identity%20Center.md) | Centralized workforce access and single sign-on for AWS accounts and applications. |
+| [Amazon Control Tower](notes/Amazon%20Control%20Tower.md) | The easiest way to set up and govern a secure, compliant multi-account environment. |
 | [Amazon Cognito](notes/Amazon%20Cognito.md) | Add user sign-up, sign-in, and access control to web and mobile apps. |
 | [Directory Service](notes/Directory%20Service.md) | Managed Microsoft Active Directory and directory integration for AWS workloads. |
 | [ACM](notes/ACM.md) | Provision, manage, and renew SSL/TLS certificates for AWS resources. |
