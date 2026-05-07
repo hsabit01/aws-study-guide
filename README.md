@@ -95,6 +95,8 @@ Grouped index of AWS service notes in this repository.
 | [Amazon QuickSight](notes/Amazon%20QuickSight.md) | Create business intelligence dashboards and data visualizations. |
 | [Lake Formation](notes/Lake%20Formation.md) | Build, secure, and manage data lakes on AWS. |
 | [SageMaker](notes/SageMaker.md) | Build, train, and deploy machine learning models. |
+| [Amazon Kendra](notes/Amazon%20Kendra.md) | Intelligent enterprise search.. |
+
 
 ## 8. Messaging, Streaming, Events & Workflows
 
@@ -132,7 +134,3 @@ Grouped index of AWS service notes in this repository.
 | [AWS Compute Optimizer](notes/AWS%20Compute%20Optimizer.md) | Recommend optimal compute resources based on utilization patterns. |
 | [Trusted Advisor](notes/Trusted%20Advisor.md) | Review AWS environments for cost, security, performance, fault tolerance, and service limits. |
 | [AWS Well-Architected Tool](notes/AWS%20Well-Architected%20Tool.md) | Review workloads against AWS Well-Architected best practices. |
-
-## 11. Machine Learning 
-|---|---|
-| [Amazon Kendra](notes/Amazon%20Kendra.md) | Intelligent enterprise search.. |
