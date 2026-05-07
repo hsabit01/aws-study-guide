@@ -132,3 +132,7 @@ Grouped index of AWS service notes in this repository.
 | [AWS Compute Optimizer](notes/AWS%20Compute%20Optimizer.md) | Recommend optimal compute resources based on utilization patterns. |
 | [Trusted Advisor](notes/Trusted%20Advisor.md) | Review AWS environments for cost, security, performance, fault tolerance, and service limits. |
 | [AWS Well-Architected Tool](notes/AWS%20Well-Architected%20Tool.md) | Review workloads against AWS Well-Architected best practices. |
+
+## 11. Machine Learning 
+|---|---|
+| [Amazon Kendra](notes/Amazon%20Kendra.md) | Intelligent enterprise search.. |
